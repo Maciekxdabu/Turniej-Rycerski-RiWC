@@ -11,12 +11,13 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Horse horse = null;
     [Space]
-    [SerializeField] private Transform Lance = null;
+    [SerializeField] private Animator lanceAnimator = null;
 
     private Rigidbody2D rigidb = null;
     private bool right = true;
     private bool canUp = false;
     private bool canDown = false;
+    private bool canLance = true;
 
     //inputs
     private float moveValue = 0f;
@@ -92,10 +93,18 @@ public class Player : MonoBehaviour
 
     public void OnRaiseLance(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (canLance && ctx.started)
         {
-            throw new System.NotImplementedException();
+            canLance = false;
+            lanceAnimator.SetTrigger("MoveLanceUp");
         }
+    }
+
+    // ---------- Called in Unity
+
+    public void ResetLance()
+    {
+        canLance = true;
     }
 
     // ---------- private methods
