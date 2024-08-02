@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2643902b6dd7e5499863f370a0a0fac, type: 3}
   m_Name: Middle
   m_EditorClassIdentifier: 
-  <acceleration>k__BackingField: 15
-  <maxSpeed>k__BackingField: 5
+  <acceleration>k__BackingField: 0.2
+  <maxSpeed>k__BackingField: 0.2
   <strength>k__BackingField: 0

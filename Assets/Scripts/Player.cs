@@ -6,63 +6,54 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    private static string upTag = "MoveUp";
-    private static string downTag = "MoveDown";
-
     [SerializeField] private Horse horse = null;
     [Space]
     [SerializeField] private Animator lanceAnimator = null;
 
-    private Rigidbody2D rigidb = null;
+    [Header("Debug Values")]
+    [SerializeField] private int line;
+    [SerializeField] private float position;
+
     private bool right = true;
-    private bool canUp = false;
-    private bool canDown = false;
     private bool canLance = true;
+
+    private float velocity = 0f;
 
     //inputs
     private float moveValue = 0f;
 
     // ---------- Unity methods
 
-    private void Awake()
-    {
-        rigidb = GetComponent<Rigidbody2D>();
-    }
-
-    private void FixedUpdate()
+    private void Update()
     {
         if (moveValue != 0)
         {
-            rigidb.AddForce(Vector2.right * moveValue * horse.acceleration);
-            ConstrainSpeed();
+            velocity += Mathf.Clamp(moveValue * horse.acceleration * Time.deltaTime, -horse.maxSpeed, horse.maxSpeed);
 
-            if (right && rigidb.velocity.x < 0)//check if moves left now
+            if (velocity < 0f)
             {
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
                 right = false;
             }
-            else if (!right && rigidb.velocity.x > 0)//check if move right now
+            else if (velocity > 0f)
             {
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
                 right = true;
             }
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == upTag)
-            canUp = true;
-        if (collision.tag == downTag)
-            canDown = true;
-    }
+        position += velocity * Time.deltaTime;
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == upTag)
-            canUp = false;
-        if (collision.tag == downTag)
-            canDown = false;
+        if (position < 0)
+        {
+            velocity = 0;
+            position = 0;
+        }
+        else if (position > 1)
+        {
+            velocity = 0;
+            position = 1;
+        }
     }
 
     // ---------- Input methods
@@ -77,17 +68,17 @@ public class Player : MonoBehaviour
 
     public void OnRaiseLine(InputAction.CallbackContext ctx)
     {
-        if (canUp && ctx.started)
+        if (ctx.started && Map.CanChangeLine(line, position, true))
         {
-            Map.ChangeLine(this, true);
+            line--;
         }
     }
 
     public void OnLowerLine(InputAction.CallbackContext ctx)
     {
-        if (canDown && ctx.started)
+        if (ctx.started && Map.CanChangeLine(line, position, false))
         {
-            Map.ChangeLine(this, false);
+            line++;
         }
     }
 
@@ -100,28 +91,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    // ---------- public getters
+
+    public (int, float) GetPositions()
+    {
+        return (line, position);
+    }
+
     // ---------- Called in Unity
 
     public void ResetLance()
     {
         canLance = true;
-    }
-
-    // ---------- private methods
-
-    private void ConstrainSpeed()
-    {
-        if (rigidb.velocity.x > horse.maxSpeed)
-        {
-            Vector2 newPos = rigidb.velocity;
-            newPos.x = horse.maxSpeed;
-            rigidb.velocity = newPos;
-        }
-        else if (rigidb.velocity.x < -horse.maxSpeed)
-        {
-            Vector2 newPos = rigidb.velocity;
-            newPos.x = -horse.maxSpeed;
-            rigidb.velocity = newPos;
-        }
     }
 }
