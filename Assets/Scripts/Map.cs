@@ -10,6 +10,15 @@ public class Map : MonoBehaviour
         public Vector2[] passages;
     }
 
+    [System.Serializable]
+    public class MapPosition
+    {
+        [Tooltip("Line number (index)")]
+        public int line;
+        [Tooltip("Map position (from 0 to 1)")]
+        public float position;
+    }
+
     // ---------- Variables
 
     private static Map instance = null;
@@ -107,10 +116,20 @@ public class Map : MonoBehaviour
         return false;
     }
 
+    private void _AddPlayer(Player player)
+    {
+        players.Add(player);
+    }
+
     // ---------- public static wrappers
 
     public static bool CanChangeLine(int currentLane, float currentPosition, bool up = true)
     {
         return instance._CanMoveLane(currentLane, currentPosition, up);
+    }
+
+    public static void AddPlayer(Player player)
+    {
+        instance._AddPlayer(player);
     }
 }

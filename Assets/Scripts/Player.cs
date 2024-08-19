@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private Horse horse = null;
     [Space]
     [SerializeField] private Animator lanceAnimator = null;
+    [Space]
+    [SerializeField] private Camera playerCamera;
 
     [Header("Debug Values")]
     [SerializeField] private int line;
@@ -23,6 +25,11 @@ public class Player : MonoBehaviour
     private float moveValue = 0f;
 
     // ---------- Unity methods
+
+    private void Start()
+    {
+        playerCamera.transform.parent = null;
+    }
 
     private void Update()
     {
@@ -56,7 +63,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    // ---------- Input methods
+    // ---------- public methods
+
+    public void Warp(Map.MapPosition newPosition)
+    {
+        line = newPosition.line;
+        position = newPosition.position;
+    }
+
+    // ---------- Input methods (assigned in Inspector)
 
     public void OnMove(InputAction.CallbackContext ctx)
     {
@@ -98,7 +113,7 @@ public class Player : MonoBehaviour
         return (line, position);
     }
 
-    // ---------- Called in Unity
+    // ---------- Called in Unity (by Events)
 
     public void ResetLance()
     {
