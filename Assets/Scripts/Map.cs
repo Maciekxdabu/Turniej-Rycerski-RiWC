@@ -17,6 +17,8 @@ public class Map : MonoBehaviour
         public int line;
         [Tooltip("Map position (from 0 to 1)")]
         public float position;
+        [Tooltip("Player orientation upon warp")]
+        public bool right = true;
     }
 
     // ---------- Variables

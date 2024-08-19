@@ -26,11 +26,6 @@ public class Player : MonoBehaviour
 
     // ---------- Unity methods
 
-    private void Start()
-    {
-        playerCamera.transform.parent = null;
-    }
-
     private void Update()
     {
         if (moveValue != 0)
@@ -39,13 +34,13 @@ public class Player : MonoBehaviour
 
             if (velocity < 0f)
             {
-                transform.localRotation = Quaternion.Euler(0, 180, 0);
                 right = false;
+                Orient();
             }
             else if (velocity > 0f)
             {
-                transform.localRotation = Quaternion.Euler(0, 0, 0);
                 right = true;
+                Orient();
             }
         }
 
@@ -65,10 +60,19 @@ public class Player : MonoBehaviour
 
     // ---------- public methods
 
-    public void Warp(Map.MapPosition newPosition)
+    public void Init(Map.MapPosition newPosition, float cameraY)
     {
+        //setup camera
+        playerCamera.transform.parent = null;
+        Vector3 pos = playerCamera.transform.position;
+        pos.y = cameraY;
+        playerCamera.transform.position = pos;
+
+        //setup map position values
         line = newPosition.line;
         position = newPosition.position;
+        right = newPosition.right;
+        Orient();
     }
 
     // ---------- Input methods (assigned in Inspector)
@@ -118,5 +122,15 @@ public class Player : MonoBehaviour
     public void ResetLance()
     {
         canLance = true;
+    }
+
+    // ---------- private methods
+
+    private void Orient()
+    {
+        if (right)
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        else
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
     }
 }

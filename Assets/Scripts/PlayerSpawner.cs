@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class PlayerSpawner : MonoBehaviour
 {
+    [SerializeField] private Transform camerasYPosition;
     [SerializeField] private Map.MapPosition[] spawnPositions;
+
     private bool[] spawnsTaken = { };
 
     private PlayerInputManager playerInputManager;
@@ -34,7 +36,7 @@ public class PlayerSpawner : MonoBehaviour
         {
             if (spawnsTaken[i] == false)//configure Player if there is an available spawn position
             {
-                player.Warp(spawnPositions[i]);
+                player.Init(spawnPositions[i], camerasYPosition.position.y);
                 spawnsTaken[i] = true;
 
                 Map.AddPlayer(player);
