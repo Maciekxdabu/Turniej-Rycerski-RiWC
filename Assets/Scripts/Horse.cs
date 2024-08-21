@@ -10,5 +10,7 @@ public class Horse : ScriptableObject
     [field: SerializeField]
     public float maxSpeed { get; private set; }
     [field: SerializeField]
+    public float minDamagingSpeed { get; private set; }
+    [field: SerializeField]
     public float strength { get; private set; }
 }

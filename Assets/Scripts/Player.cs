@@ -2,15 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Horse horse = null;
+    [SerializeField] private Horse horseData = null;
+    [SerializeField] private float invincibilityTime = 1.5f;
     [Space]
     [SerializeField] private Animator lanceAnimator = null;
     [Space]
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private Canvas playerCanvas;
+    [Header("REMOVE WHEN REDUNDANT")]
+    [SerializeField] private SpriteRenderer knightSprite;
+    [SerializeField] private Slider healthSlider;
 
     [Header("Debug Values")]
     [SerializeField] private int line;
@@ -18,7 +24,9 @@ public class Player : MonoBehaviour
 
     private bool right = true;
     private bool canLance = true;
+    private bool lunging = false;
 
+    private float health = 100f;
     private float velocity = 0f;
 
     //inputs
@@ -30,7 +38,7 @@ public class Player : MonoBehaviour
     {
         if (moveValue != 0)
         {
-            velocity += Mathf.Clamp(moveValue * horse.acceleration * Time.deltaTime, -horse.maxSpeed, horse.maxSpeed);
+            velocity += Mathf.Clamp(moveValue * horseData.acceleration * Time.deltaTime, -horseData.maxSpeed, horseData.maxSpeed);
 
             if (velocity < 0f)
             {
@@ -62,8 +70,10 @@ public class Player : MonoBehaviour
 
     public void Init(Map.MapPosition newPosition, float cameraY)
     {
+        playerCanvas.transform.SetParent(null);
+
         //setup camera
-        playerCamera.transform.parent = null;
+        playerCamera.transform.SetParent(null);
         Vector3 pos = playerCamera.transform.position;
         pos.y = cameraY;
         playerCamera.transform.position = pos;
@@ -73,6 +83,14 @@ public class Player : MonoBehaviour
         position = newPosition.position;
         right = newPosition.right;
         Orient();
+    }
+
+    //called when a player hit another player with a lance (checks if the player can receive damage)
+    public void ReceiveHit(Player damagingPlayer)
+    {
+        //check if damage applicable (lunging and speed requirement)
+        if (damagingPlayer.lunging && Mathf.Abs(damagingPlayer.velocity) > damagingPlayer.horseData.minDamagingSpeed)
+            StartCoroutine(DamageSelf(damagingPlayer));
     }
 
     // ---------- Input methods (assigned in Inspector)
@@ -119,6 +137,16 @@ public class Player : MonoBehaviour
 
     // ---------- Called in Unity (by Events)
 
+    public void OnLungeStart()
+    {
+        lunging = true;
+    }
+
+    public void OnLungeEnd()
+    {
+        lunging = false;
+    }
+
     public void ResetLance()
     {
         canLance = true;
@@ -132,5 +160,34 @@ public class Player : MonoBehaviour
             transform.localRotation = Quaternion.Euler(0, 0, 0);
         else
             transform.localRotation = Quaternion.Euler(0, 180, 0);
+    }
+
+    //applies damage to player, plays animation, etc
+    private IEnumerator DamageSelf(Player damagingPlayer)
+    {
+        //remove damaged health
+        health -= damagingPlayer.horseData.strength;
+        healthSlider.value = health / 100f;
+        Debug.Log("Player received damage", gameObject);
+
+        //play animation (which applies cooldown) (maybe a Corutine)
+        Color color = knightSprite.color;
+        color.a = 0.5f;
+        knightSprite.color = color;
+        yield return new WaitForSeconds(invincibilityTime);
+        color.a = 1f;
+        knightSprite.color = color;
+
+        //call death after animation ended and health <= 0
+        if (health <= 0)
+            OnPlayerDeath();
+    }
+
+    private void OnPlayerDeath()
+    {
+        //disable and hide Player (object and script are still needed for points and commentary purposes)
+        //TODO
+        Debug.Log("Player died", gameObject);
+        gameObject.SetActive(false);
     }
 }
