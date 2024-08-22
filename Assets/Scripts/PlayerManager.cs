@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Map.MapPosition[] spawnPositions;
     [Header("Other references --- Remove when redundant")]
     [SerializeField] private GameObject startGameBtn;
+    [SerializeField] private GameObject exitGameBtn;
 
     private PlayerInputManager playerInputManager;
 
@@ -55,9 +56,9 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    // ---------- public methods
+    // ---------- public methods (UI Buttons)
 
-    public void StartGame()
+    public void StartGameBtn()
     {
         if (PlayerInput.all.Count <= 0)
         {
@@ -67,6 +68,7 @@ public class PlayerManager : MonoBehaviour
 
         //disable the start game button
         startGameBtn.SetActive(false);
+        exitGameBtn.SetActive(false);
 
         //disable joining of new players
         playerInputManager.DisableJoining();
@@ -82,6 +84,13 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+
+    public void ExitGameBtn()
+    {
+        Application.Quit();
+    }
+
+    // ---------- public methods
 
     public void OnPlayerDeath(Player deadPlayer)
     {
@@ -118,5 +127,6 @@ public class PlayerManager : MonoBehaviour
 
         //reanable the start game button
         startGameBtn.SetActive(true);
+        exitGameBtn.SetActive(true);
     }
 }
