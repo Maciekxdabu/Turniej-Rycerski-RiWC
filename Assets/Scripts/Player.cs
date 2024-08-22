@@ -25,14 +25,21 @@ public class Player : MonoBehaviour
     private bool right = true;
     private bool canLance = true;
     private bool lunging = false;
+    private bool canBeDamaged = true;
 
     private float health = 100f;
     private float velocity = 0f;
 
     //inputs
+    private PlayerInput input;
     private float moveValue = 0f;
 
     // ---------- Unity methods
+
+    private void Awake()
+    {
+        input = GetComponent<PlayerInput>();
+    }
 
     private void Update()
     {
@@ -82,6 +89,7 @@ public class Player : MonoBehaviour
         line = newPosition.line;
         position = newPosition.position;
         right = newPosition.right;
+        canBeDamaged = true;
         Orient();
     }
 
@@ -89,7 +97,7 @@ public class Player : MonoBehaviour
     public void ReceiveHit(Player damagingPlayer)
     {
         //check if damage applicable (lunging and speed requirement)
-        if (damagingPlayer.lunging && Mathf.Abs(damagingPlayer.velocity) > damagingPlayer.horseData.minDamagingSpeed)
+        if (canBeDamaged && damagingPlayer.lunging && Mathf.Abs(damagingPlayer.velocity) > damagingPlayer.horseData.minDamagingSpeed)
             StartCoroutine(DamageSelf(damagingPlayer));
     }
 
@@ -165,22 +173,38 @@ public class Player : MonoBehaviour
     //applies damage to player, plays animation, etc
     private IEnumerator DamageSelf(Player damagingPlayer)
     {
-        //remove damaged health
-        health -= damagingPlayer.horseData.strength;
-        healthSlider.value = health / 100f;
-        Debug.Log("Player received damage", gameObject);
+        if (canBeDamaged == false)
+            yield break;
+        canBeDamaged = false;
 
+        //disable input
+        input.DeactivateInput();
+        velocity = 0;
         //play animation (which applies cooldown) (maybe a Corutine)
         Color color = knightSprite.color;
         color.a = 0.5f;
         knightSprite.color = color;
+
+        // --- remove damaged health
+        health -= damagingPlayer.horseData.strength;
+        healthSlider.value = health / 100f;
+        Debug.Log("Player received damage", gameObject);
+
+        // --- Invincibility time
+        //wait for invincibility time (later animation length)
         yield return new WaitForSeconds(invincibilityTime);
+        //reset player
         color.a = 1f;
         knightSprite.color = color;
 
-        //call death after animation ended and health <= 0
+        // --- call death after animation ended and health <= 0
         if (health <= 0)
             OnPlayerDeath();
+        else//reactivate input if player is still alive
+        {
+            input.ActivateInput();
+            canBeDamaged = true;
+        }
     }
 
     private void OnPlayerDeath()
