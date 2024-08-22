@@ -94,12 +94,22 @@ public class Player : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        //setup map position values
+        //setup up Player values
+        health = 100f;
+        healthSlider.value = 1f;
+
+        velocity = 0f;
         line = newPosition.line;
         position = newPosition.position;
         right = newPosition.right;
-        canBeDamaged = true;
         Orient();
+
+        canBeDamaged = true;
+        canLance = true;
+        lunging = false;
+
+        lanceAnimator.Rebind();
+        lanceAnimator.speed = 1f;
 
         //activate input
         input.ActivateInput();
@@ -111,6 +121,13 @@ public class Player : MonoBehaviour
         //check if damage applicable (lunging and speed requirement)
         if (canBeDamaged && damagingPlayer.lunging && Mathf.Abs(damagingPlayer.velocity) > damagingPlayer.horseData.minDamagingSpeed)
             StartCoroutine(DamageSelf(damagingPlayer));
+    }
+
+    public void ManualPlayerDisable()
+    {
+        input.DeactivateInput();
+        velocity = 0f;
+        lanceAnimator.speed = 0f;
     }
 
     // ---------- Input methods (assigned in Inspector)
@@ -221,14 +238,14 @@ public class Player : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        //disable and hide Player (object and script are still needed for points and commentary purposes)
-        //TODO
-        Debug.Log("Player died", gameObject);
-
+        input.DeactivateInput();
         //disable all child objects
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
+
+        //tell the Player Manager that this Player died
+        PlayerManager.Instance.OnPlayerDeath(this);
     }
 }

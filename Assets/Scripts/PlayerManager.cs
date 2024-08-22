@@ -13,10 +13,18 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerInputManager playerInputManager;
 
+    private List<Player> activePlayers = new List<Player>();
+
+    //singleton
+    private static PlayerManager _instance;
+    public static PlayerManager Instance { get { return _instance; } }
+
     // ---------- Unity messages
 
     private void Awake()
     {
+        _instance = this;
+
         //get needed references
         playerInputManager = GetComponent<PlayerInputManager>();
     }
@@ -64,21 +72,47 @@ public class PlayerManager : MonoBehaviour
         playerInputManager.DisableJoining();
 
         //setup players
+        activePlayers.Clear();
         for (int i = 0; i < PlayerInput.all.Count; i++)
         {
             if (PlayerInput.all[i].TryGetComponent<Player>(out Player player))
-            { 
+            {
+                activePlayers.Add(player);
                 player.OnStartGame(spawnPositions[i]);
             }
         }
     }
 
-    public void OnGameFinished()
+    public void OnPlayerDeath(Player deadPlayer)
     {
-        //disable all players input (not only the winning one, because the match could end in different ways)
+        //remove player from alive list
+        activePlayers.Remove(deadPlayer);
+
+        //check if there is a single winner present
+        if (activePlayers.Count <= 1)
+        {
+            OnGameFinished();
+        }
+    }
+
+    // ---------- private methods
+
+    private void OnGameFinished()
+    {
+        // --- after game finishes
+        //disable all players inputs (not only the winning one, because the match could end in different ways)
+        for (int i = 0; i < PlayerInput.all.Count; i++)
+        {
+            if (PlayerInput.all[i].TryGetComponent<Player>(out Player player))
+            {
+                player.ManualPlayerDisable();
+            }
+        }
 
         //display score/result
 
+
+        // --- reenable joining and UI
         //reanable joining
         playerInputManager.EnableJoining();
 
