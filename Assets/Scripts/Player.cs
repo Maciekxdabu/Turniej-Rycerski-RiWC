@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 
     // ---------- public methods
 
-    public void Init(Map.MapPosition newPosition, float cameraY)
+    public void Init(float cameraY)
     {
         playerCanvas.transform.SetParent(null);
 
@@ -84,6 +84,15 @@ public class Player : MonoBehaviour
         Vector3 pos = playerCamera.transform.position;
         pos.y = cameraY;
         playerCamera.transform.position = pos;
+    }
+
+    public void OnStartGame(Map.MapPosition newPosition)
+    {
+        //enable all child objects
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
 
         //setup map position values
         line = newPosition.line;
@@ -215,6 +224,11 @@ public class Player : MonoBehaviour
         //disable and hide Player (object and script are still needed for points and commentary purposes)
         //TODO
         Debug.Log("Player died", gameObject);
-        gameObject.SetActive(false);
+
+        //disable all child objects
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 }

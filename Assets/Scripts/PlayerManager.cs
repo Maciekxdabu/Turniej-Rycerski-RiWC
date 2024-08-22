@@ -35,7 +35,8 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        //add Player to Map (for movement)
+        //Init Player and add it to the Map (for movement)
+        player.Init(camerasYPosition.position.y);
         Map.AddPlayer(player);
 
         return;
@@ -67,7 +68,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (PlayerInput.all[i].TryGetComponent<Player>(out Player player))
             { 
-                player.Init(spawnPositions[i], camerasYPosition.position.y);
+                player.OnStartGame(spawnPositions[i]);
             }
         }
     }
