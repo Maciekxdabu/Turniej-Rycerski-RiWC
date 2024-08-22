@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInputManager))]
-public class PlayerSpawner : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private Transform camerasYPosition;
     [SerializeField] private Map.MapPosition[] spawnPositions;
