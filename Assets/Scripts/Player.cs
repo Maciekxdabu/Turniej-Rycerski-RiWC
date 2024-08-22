@@ -91,6 +91,9 @@ public class Player : MonoBehaviour
         right = newPosition.right;
         canBeDamaged = true;
         Orient();
+
+        //activate input
+        input.ActivateInput();
     }
 
     //called when a player hit another player with a lance (checks if the player can receive damage)
