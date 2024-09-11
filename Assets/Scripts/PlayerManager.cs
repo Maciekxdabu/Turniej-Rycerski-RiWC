@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Manages joining and leaving of Players
+/// </summary>
 [RequireComponent(typeof(PlayerInputManager))]
 public class PlayerManager : MonoBehaviour
 {
