@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// Manages joining and leaving of Players
 /// </summary>
 [RequireComponent(typeof(PlayerInputManager))]
-public class PlayerManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     [SerializeField] private Transform camerasYPosition;
     [SerializeField] private Map.MapPosition[] spawnPositions;
@@ -20,8 +20,8 @@ public class PlayerManager : MonoBehaviour
     private List<Player> activePlayers = new List<Player>();
 
     //singleton
-    private static PlayerManager _instance;
-    public static PlayerManager Instance { get { return _instance; } }
+    private static GameManager _instance;
+    public static GameManager Instance { get { return _instance; } }
 
     // ---------- Unity messages
 

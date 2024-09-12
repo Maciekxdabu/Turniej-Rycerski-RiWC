@@ -246,6 +246,6 @@ public class Player : MonoBehaviour
         }
 
         //tell the Player Manager that this Player died
-        PlayerManager.Instance.OnPlayerDeath(this);
+        GameManager.Instance.OnPlayerDeath(this);
     }
 }
