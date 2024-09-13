@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 /// <summary>
 /// Manages joining and leaving of Players
@@ -9,6 +10,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class GameManager : MonoBehaviour
 {
+    [Header("DEBUG")]
+    [SerializeField] private bool DEBUG_JOINING = false;
+    [Header("Values")]
     [SerializeField] private Transform camerasYPosition;
     [SerializeField] private Map.MapPosition[] spawnPositions;
     [Header("Other references --- Remove when redundant")]
@@ -33,11 +37,41 @@ public class GameManager : MonoBehaviour
         playerInputManager = GetComponent<PlayerInputManager>();
     }
 
+    private void Start()
+    {
+        playerInputManager.EnableJoining();
+
+        if (DEBUG_JOINING)
+        {
+            PlayerInput player = null;
+            do
+            {
+                player = playerInputManager.JoinPlayer();
+            }
+            while (player != null);
+        }
+        else
+        {
+            for (int i = 0; i < PlayerManager.PlayerDataList.Count; i++)
+            {
+                PlayerManager.PlayerData playerData = PlayerManager.PlayerDataList[i];
+                //playerInputManager.JoinPlayer(playerData.playerIndex, i, playerData.controlScheme, playerData.devices);
+                playerInputManager.JoinPlayer(controlScheme: playerData.controlScheme, pairWithDevices: playerData.devices);
+            }
+        }
+
+        playerInputManager.DisableJoining();
+    }
+
     // ---------- Player Input Manager messages
 
     //should make sure the player joined correctly (e.g. correct prefab) (only configurations which need to happen only once)
     public void OnPlayerJoined(PlayerInput playerInput)
     {
+        if (playerInput.devices.Count == 0)
+            return;
+        Debug.Log("New player joined in gameplay");
+
         playerInput.DeactivateInput();
         Player player = playerInput.GetComponent<Player>();
         if (player == null)
