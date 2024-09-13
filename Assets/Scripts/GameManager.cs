@@ -41,16 +41,7 @@ public class GameManager : MonoBehaviour
     {
         playerInputManager.EnableJoining();
 
-        if (DEBUG_JOINING)
-        {
-            PlayerInput player = null;
-            do
-            {
-                player = playerInputManager.JoinPlayer();
-            }
-            while (player != null);
-        }
-        else
+        if (PlayerManager.PlayerDataList.Count > 0)
         {
             for (int i = 0; i < PlayerManager.PlayerDataList.Count; i++)
             {
@@ -58,6 +49,15 @@ public class GameManager : MonoBehaviour
                 //playerInputManager.JoinPlayer(playerData.playerIndex, i, playerData.controlScheme, playerData.devices);
                 playerInputManager.JoinPlayer(controlScheme: playerData.controlScheme, pairWithDevices: playerData.devices);
             }
+        }
+        else if (DEBUG_JOINING)
+        {
+            PlayerInput player = null;
+            do
+            {
+                player = playerInputManager.JoinPlayer();
+            }
+            while (player != null);
         }
 
         playerInputManager.DisableJoining();
