@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Horse horseData = null;
+    [SerializeField] private Knight knightData = null;
     [SerializeField] private float invincibilityTime = 1.5f;
     [Space]
     [SerializeField] private Animator lanceAnimator = null;
@@ -96,6 +97,7 @@ public class Player : MonoBehaviour
 
         //get Coop Setup values
         horseData = playerSetup.GetHorse();
+        knightData = playerSetup.GetKnight();
 
         //setup up Player values
         health = 100f;

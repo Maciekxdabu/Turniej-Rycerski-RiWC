@@ -10,6 +10,7 @@ public class PlayerSetup : MonoBehaviour
 {
     //variables
     [SerializeField] private HorseToggleGroup horseToggleGroup;
+    [SerializeField] private KnightToggleGroup knightToggleGroup;
     [SerializeField] private CanvasGroup mainGroup;
     [SerializeField] private CanvasGroup setupGroup;
     [SerializeField] private Toggle readyToggle;
@@ -27,6 +28,7 @@ public class PlayerSetup : MonoBehaviour
         readyToggle.SetIsOnWithoutNotify(false);
 
         horseToggleGroup.Init();
+        knightToggleGroup.Init();
 
         OnUpdateSetup();
     }
@@ -95,13 +97,19 @@ public class PlayerSetup : MonoBehaviour
         return horseToggleGroup.ChosenData;
     }
 
+    public Knight GetKnight()
+    {
+        return knightToggleGroup.ChosenData;
+    }
+
     // ---------- private methods
 
     //called when a Horse has been changed
     private void OnUpdateSetup()
     {
         Debug.LogFormat(gameObject,"Current setup:\n" +
-            "Horse: {0}\n", horseToggleGroup.ChosenData);
+            "Horse: {0}\n" +
+            "Knight: {1}\n", horseToggleGroup.ChosenData, knightToggleGroup.ChosenData);
 
         //update graphics
         //TODO
@@ -112,6 +120,6 @@ public class PlayerSetup : MonoBehaviour
 
     private bool IsSetupValid()
     {
-        return horseToggleGroup.ChosenData != null;
+        return horseToggleGroup.ChosenData != null && knightToggleGroup.ChosenData != null;
     }
 }
