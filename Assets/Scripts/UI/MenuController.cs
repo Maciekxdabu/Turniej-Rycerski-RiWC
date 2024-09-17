@@ -72,7 +72,10 @@ public class MenuController : MonoBehaviour
 
     public void OnLevelClickedBtn(string sceneToLoad)
     {
-        SceneManager.LoadScene(sceneToLoad);
+        if (PlayerManager.PlayerDataList.Count > 1)
+            SceneManager.LoadScene(sceneToLoad);
+        else
+            Debug.LogWarning("WAR: You need at least 2 players to start the game");
     }
 
     public void OnConfigurationClickedBtn()

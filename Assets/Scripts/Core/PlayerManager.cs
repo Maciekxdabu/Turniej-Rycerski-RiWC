@@ -14,10 +14,14 @@ public class PlayerManager : MonoBehaviour
         public InputDevice[] devices;
     }
 
+    [SerializeField] private Transform[] spawnPositions;
+
+    [SerializeField, ReadOnly] private List<PlayerData> debugList;
+
+    //private values
     private PlayerInputManager inputManager;
 
-    [SerializeField] private List<PlayerData> debugList;
-
+    //static values
     private static List<PlayerData> _playerDataList = new List<PlayerData>();
     public static List<PlayerData> PlayerDataList { get { return _playerDataList; } }
 
@@ -37,6 +41,9 @@ public class PlayerManager : MonoBehaviour
 
     public void OnConfigurationEnd()
     {
+        //configure split-devices, etc.)
+        //TODO
+
         inputManager.DisableJoining();
     }
 
@@ -44,6 +51,10 @@ public class PlayerManager : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput player)
     {
+        //set spawn position
+        player.transform.position = spawnPositions[_playerDataList.Count].position;
+
+        //get Player Input data
         PlayerData data = new PlayerData();
 
         data.playerIndex = player.playerIndex;
@@ -62,6 +73,11 @@ public class PlayerManager : MonoBehaviour
         {
             _playerDataList.RemoveAll(x => x.playerIndex == player.playerIndex);
             debugList.RemoveAll(x => x.playerIndex == player.playerIndex);
+
+            for (int i = 0; i < PlayerInput.all.Count; i++)
+            {
+                PlayerInput.all[i].transform.position = spawnPositions[i].position;
+            }
 
             Debug.Log("Removed a Player");
         }
