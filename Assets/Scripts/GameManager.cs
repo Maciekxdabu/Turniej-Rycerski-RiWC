@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
 /// <summary>
-/// Manages joining and leaving of Players
+/// Manages the gameplay
+/// Joins registered players and sends them to the Setup
+/// After setup ends, it initializes the gameplay
 /// </summary>
 [RequireComponent(typeof(PlayerInputManager))]
 public class GameManager : MonoBehaviour
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
     [Header("Values")]
     [SerializeField] private Transform camerasYPosition;
     [SerializeField] private Map.MapPosition[] spawnPositions;
+    [SerializeField] private CoopSetup coopSetup;
     [Header("Other references --- Remove when redundant")]
     [SerializeField] private GameObject startGameBtn;
     [SerializeField] private GameObject exitGameBtn;
@@ -82,7 +85,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Init Player and add it to the Map (for movement)
-        player.Init(camerasYPosition.position.y);
+        player.Init(camerasYPosition.position.y, coopSetup);
         Map.AddPlayer(player);
 
         return;
@@ -99,9 +102,11 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerInput.all.Count <= 0)
         {
-            Debug.LogWarning("WAR: There is no enough Players to start the game, at least 1 Player is required", gameObject);
+            Debug.LogWarning("WAR: There is not enough Players to start the game, at least 1 Player is required", gameObject);
             return;
         }
+
+        Debug.Log("===Started the game!");
 
         //disable the start game button
         startGameBtn.SetActive(false);

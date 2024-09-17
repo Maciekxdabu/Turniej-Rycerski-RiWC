@@ -16,3 +16,4 @@ MonoBehaviour:
   <maxSpeed>k__BackingField: 0.2
   <minDamagingSpeed>k__BackingField: 0.1
   <strength>k__BackingField: 34
+  <previewGraphic>k__BackingField: {fileID: 0}

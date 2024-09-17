@@ -1,36 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Setups the joined players for the coop gameplay
+/// Basically let's each Player choose their game setup
 /// </summary>
 public class CoopSetup : MonoBehaviour
 {
-    private class PlayerData
-    {
-        public PlayerSetup setup;
-        public bool ready = false;
-    }
+    [SerializeField] private List<PlayerSetup> players = new List<PlayerSetup>();
 
-    [SerializeField] private PlayerData[] players;
+    //event for informing gameplay when the coop setup is ready
+    private UnityEvent onSetupFinishEvent = new UnityEvent();
 
     // ---------- pulic methods
 
-    public void AddPlayer(Player player)
+    public void AddPlayer(PlayerSetup player)
     {
-
+        player.Init(this);
+        players.Add(player);
     }
 
-    public void RemovePlayer(Player player)
+    public void Init()
     {
 
     }
 
     // ---------- public methods (used by UnityEvent's)
 
-    public void OnReady(PlayerSetup player, bool ready_state)
+    public void OnReady(PlayerSetup player)
     {
+        if (players.TrueForAll(x => x.IsPlayerReady()))
+        {
+            foreach (PlayerSetup p in players)
+                p.DisableSetup();
 
+            GameManager.Instance.StartGameBtn();
+        }
+    }
+
+    // ---------- private methods
+
+    private void OnSetupFinish()
+    {
+        //TODO
+
+        //inform about coop setup finishing
+        onSetupFinishEvent.Invoke();
     }
 }

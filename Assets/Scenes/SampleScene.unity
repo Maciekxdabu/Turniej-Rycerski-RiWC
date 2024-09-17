@@ -1416,7 +1416,7 @@ GameObject:
   - component: {fileID: 294419465}
   - component: {fileID: 294419467}
   m_Layer: 0
-  m_Name: Players Manager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1517,6 +1517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d9e559ebcd25149b84aaf5a22ae682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_JOINING: 1
   camerasYPosition: {fileID: 1754415099}
   spawnPositions:
   - line: 0
@@ -1531,9 +1532,9 @@ MonoBehaviour:
   - line: 2
     position: 0.9
     right: 0
+  coopSetup: {fileID: 1930542629}
   startGameBtn: {fileID: 75709853}
   exitGameBtn: {fileID: 60914237}
-  DEBUG_JOINING: 1
 --- !u!1 &301356726
 GameObject:
   m_ObjectHideFlags: 0
@@ -5495,6 +5496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc7313fe8a3db742bb6bf2d5bece660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
 --- !u!4 &1930542630
 Transform:
   m_ObjectHideFlags: 0

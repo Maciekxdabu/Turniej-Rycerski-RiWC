@@ -10,12 +10,13 @@ public class PlayerSetup : MonoBehaviour
 {
     //variables
     [SerializeField] private HorseToggleGroup horseToggleGroup;
+    [SerializeField] private CanvasGroup mainGroup;
     [SerializeField] private CanvasGroup setupGroup;
     [SerializeField] private Toggle readyToggle;
     [Header("Preview Graphic")]
     [SerializeField] private Image horseImage;
 
-    //private CoopSetup coopSetup;
+    private CoopSetup coopSetup;
 
     //private Horse currentHorse;
 
@@ -67,7 +68,31 @@ public class PlayerSetup : MonoBehaviour
             readyToggle.navigation = navigationData;
         }
 
-        //coopSetup.OnReady(this, readyToggle.isOn);
+        coopSetup.OnReady(this);
+    }
+
+    //Coop setup methods
+    public void Init(CoopSetup _coopSetup)
+    {
+        coopSetup = _coopSetup;
+    }
+
+    public bool IsPlayerReady()
+    {
+        return readyToggle.isOn;
+    }
+
+    public void DisableSetup()
+    {
+        mainGroup.interactable = false;
+        mainGroup.alpha = 0.0f;
+        mainGroup.blocksRaycasts = false;
+    }
+
+    //data getter methods
+    public Horse GetHorse()
+    {
+        return horseToggleGroup.ChosenData;
     }
 
     // ---------- private methods

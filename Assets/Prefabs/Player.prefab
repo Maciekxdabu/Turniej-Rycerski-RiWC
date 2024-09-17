@@ -1410,6 +1410,7 @@ GameObject:
   - component: {fileID: 1329098712650487604}
   - component: {fileID: 3803727268740269666}
   - component: {fileID: 6815694602789963120}
+  - component: {fileID: 1667626607095151474}
   - component: {fileID: 5398163732245762575}
   m_Layer: 3
   m_Name: Player Configuration (Canvas)
@@ -1503,6 +1504,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &1667626607095151474
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3980673696633931264}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &5398163732245762575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1516,6 +1529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horseToggleGroup: {fileID: 2131057349797799424}
+  mainGroup: {fileID: 1667626607095151474}
   setupGroup: {fileID: 8012532576224663305}
   readyToggle: {fileID: 517013781834742892}
   horseImage: {fileID: 4599970007505265022}
@@ -2638,7 +2652,7 @@ MonoBehaviour:
     m_ActionName: UI/RightClick[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: UI
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 753898470949925514}
 --- !u!114 &5771088664030117439
@@ -2658,6 +2672,7 @@ MonoBehaviour:
   lanceAnimator: {fileID: 5771088663409332058}
   playerCamera: {fileID: 753898470949925514}
   playerCanvas: {fileID: 3582048890346999617}
+  playerSetup: {fileID: 5398163732245762575}
   knightSprite: {fileID: 5771088663719651208}
   healthSlider: {fileID: 470446537448522600}
   line: 0

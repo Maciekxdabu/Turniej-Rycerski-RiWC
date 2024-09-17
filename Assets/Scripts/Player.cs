@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [Space]
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Canvas playerCanvas;
+    [SerializeField] private PlayerSetup playerSetup;
     [Header("REMOVE WHEN REDUNDANT")]
     [SerializeField] private SpriteRenderer knightSprite;
     [SerializeField] private Slider healthSlider;
@@ -75,7 +76,7 @@ public class Player : MonoBehaviour
 
     // ---------- public methods
 
-    public void Init(float cameraY)
+    public void Init(float cameraY, CoopSetup coopSetup)
     {
         playerCanvas.transform.SetParent(null);
 
@@ -84,6 +85,8 @@ public class Player : MonoBehaviour
         Vector3 pos = playerCamera.transform.position;
         pos.y = cameraY;
         playerCamera.transform.position = pos;
+
+        coopSetup.AddPlayer(playerSetup);
     }
 
     public void OnStartGame(Map.MapPosition newPosition)
@@ -93,6 +96,9 @@ public class Player : MonoBehaviour
         {
             transform.GetChild(i).gameObject.SetActive(true);
         }
+
+        //get Coop Setup values
+        horseData = playerSetup.GetHorse();
 
         //setup up Player values
         health = 100f;
@@ -113,6 +119,7 @@ public class Player : MonoBehaviour
 
         //activate input
         input.ActivateInput();
+        //input.SwitchCurrentActionMap("Player");//Will be needed if Player will start with another default Action Map (UI technically does not matter)
     }
 
     //called when a player hit another player with a lance (checks if the player can receive damage)
