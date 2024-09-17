@@ -76,16 +76,13 @@ public class Player : MonoBehaviour
 
     // ---------- public methods
 
-    public void Init(float cameraY, CoopSetup coopSetup)
+    public void Init(CoopSetup coopSetup)
     {
+        //deparent Canvas and Camera
         playerCanvas.transform.SetParent(null);
-
-        //setup camera
         playerCamera.transform.SetParent(null);
-        Vector3 pos = playerCamera.transform.position;
-        pos.y = cameraY;
-        playerCamera.transform.position = pos;
 
+        //Add Player to CoopSetup system
         coopSetup.AddPlayer(playerSetup);
     }
 
@@ -109,6 +106,7 @@ public class Player : MonoBehaviour
         position = newPosition.position;
         right = newPosition.right;
         Orient();
+        Map.AddPlayer(this);
 
         canBeDamaged = true;
         canLance = true;
@@ -116,6 +114,11 @@ public class Player : MonoBehaviour
 
         lanceAnimator.Rebind();
         lanceAnimator.speed = 1f;
+
+        //setup camera (Y position in the middle of the map)
+        Vector3 pos = playerCamera.transform.position;
+        pos.y = Map.GetCameraYPosition();
+        playerCamera.transform.position = pos;
 
         //activate input
         input.ActivateInput();

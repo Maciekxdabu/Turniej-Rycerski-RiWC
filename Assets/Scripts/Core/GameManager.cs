@@ -15,12 +15,8 @@ public class GameManager : MonoBehaviour
     [Header("DEBUG")]
     [SerializeField] private bool DEBUG_JOINING = false;
     [Header("Values")]
-    [SerializeField] private Transform camerasYPosition;
     [SerializeField] private Map.MapPosition[] spawnPositions;
     [SerializeField] private CoopSetup coopSetup;
-    [Header("Other references --- Remove when redundant")]
-    [SerializeField] private GameObject startGameBtn;
-    [SerializeField] private GameObject exitGameBtn;
 
     private PlayerInputManager playerInputManager;
 
@@ -55,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
         else if (DEBUG_JOINING)
         {
-            PlayerInput player = null;
+            PlayerInput player;
             do
             {
                 player = playerInputManager.JoinPlayer();
@@ -84,21 +80,20 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        //Init Player and add it to the Map (for movement)
-        player.Init(camerasYPosition.position.y, coopSetup);
-        Map.AddPlayer(player);
+        //Init Player
+        player.Init(coopSetup);
 
         return;
     }
 
     public void OnPlayerLeft(PlayerInput playerInput)
     {
-
+        Debug.LogWarning("WAR: Player left during gameplay, this should not happen", gameObject);
     }
 
     // ---------- public methods (UI Buttons)
 
-    public void StartGameBtn()
+    public void StartGame()
     {
         if (PlayerInput.all.Count <= 0)
         {
@@ -107,13 +102,6 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("===Started the game!");
-
-        //disable the start game button
-        startGameBtn.SetActive(false);
-        exitGameBtn.SetActive(false);
-
-        //disable joining of new players
-        playerInputManager.DisableJoining();
 
         //setup players
         activePlayers.Clear();
@@ -161,14 +149,6 @@ public class GameManager : MonoBehaviour
         }
 
         //display score/result
-
-
-        // --- reenable joining and UI
-        //reanable joining
-        playerInputManager.EnableJoining();
-
-        //reanable the start game button
-        startGameBtn.SetActive(true);
-        exitGameBtn.SetActive(true);
+        //TODO
     }
 }

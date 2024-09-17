@@ -23,17 +23,19 @@ public class Map : MonoBehaviour
 
     // ---------- Variables
 
-    private static Map instance = null;
-
     [Tooltip("Must be given from up to down")]
     [SerializeField] Transform[] lines;
     [SerializeField] BetweenLine[] betweenLines;
     [SerializeField] Transform startPosition;
     [SerializeField] Transform endPosition;
+    [SerializeField] Transform cameraYPosition;
     [Space]
     [SerializeField] List<Player> players = null;
 
     [SerializeField, HideInInspector] private float startX, arenaLen;
+
+    //singleton
+    private static Map instance = null;
 
     // ---------- Unity methods
 
@@ -133,5 +135,10 @@ public class Map : MonoBehaviour
     public static void AddPlayer(Player player)
     {
         instance._AddPlayer(player);
+    }
+
+    public static float GetCameraYPosition()
+    {
+        return instance.cameraYPosition.position.y;
     }
 }

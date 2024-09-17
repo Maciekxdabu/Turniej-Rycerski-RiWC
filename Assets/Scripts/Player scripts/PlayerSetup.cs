@@ -42,7 +42,7 @@ public class PlayerSetup : MonoBehaviour
     {
         if (readyToggle.isOn)//on ready
         {
-            //do nothing if setup is not correct
+            //do nothing if setup is not correct (reset ready toggle)
             if (IsSetupValid() == false)
             {
                 readyToggle.SetIsOnWithoutNotify(false);
