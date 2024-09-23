@@ -30,7 +30,7 @@ public class Map : MonoBehaviour
     [SerializeField] Transform endPosition;
     [SerializeField] Transform cameraYPosition;
     [Space]
-    [SerializeField] List<Player> players = null;
+    [SerializeField] List<PlayerController> players = null;
 
     [SerializeField, HideInInspector] private float startX, arenaLen;
 
@@ -51,7 +51,7 @@ public class Map : MonoBehaviour
     {
         int line;
         float position;
-        foreach (Player player in players)
+        foreach (PlayerController player in players)
         {
             (line, position) = player.GetPositions();
 
@@ -120,7 +120,7 @@ public class Map : MonoBehaviour
         return false;
     }
 
-    private void _AddPlayer(Player player)
+    private void _AddPlayer(PlayerController player)
     {
         players.Add(player);
     }
@@ -132,7 +132,7 @@ public class Map : MonoBehaviour
         return instance._CanMoveLane(currentLane, currentPosition, up);
     }
 
-    public static void AddPlayer(Player player)
+    public static void AddPlayer(PlayerController player)
     {
         instance._AddPlayer(player);
     }

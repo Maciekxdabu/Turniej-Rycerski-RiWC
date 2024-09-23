@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerInputManager playerInputManager;
 
-    private List<Player> activePlayers = new List<Player>();
+    private List<PlayerController> activePlayers = new List<PlayerController>();
 
     //singleton
     private static GameManager _instance;
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("New player joined in gameplay");
 
         playerInput.DeactivateInput();
-        Player player = playerInput.GetComponent<Player>();
+        PlayerController player = playerInput.GetComponent<PlayerController>();
         if (player == null)
         {
             Debug.LogWarning("ERR: Player attempted to spawn/join without a Player Component... Removing...", gameObject);
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         activePlayers.Clear();
         for (int i = 0; i < PlayerInput.all.Count; i++)
         {
-            if (PlayerInput.all[i].TryGetComponent<Player>(out Player player))
+            if (PlayerInput.all[i].TryGetComponent<PlayerController>(out PlayerController player))
             {
                 activePlayers.Add(player);
                 player.OnStartGame(spawnPositions[i]);
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
 
     // ---------- public methods
 
-    public void OnPlayerDeath(Player deadPlayer)
+    public void OnPlayerDeath(PlayerController deadPlayer)
     {
         //remove player from alive list
         activePlayers.Remove(deadPlayer);
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
         //disable all players inputs (not only the winning one, because the match could end in different ways)
         for (int i = 0; i < PlayerInput.all.Count; i++)
         {
-            if (PlayerInput.all[i].TryGetComponent<Player>(out Player player))
+            if (PlayerInput.all[i].TryGetComponent<PlayerController>(out PlayerController player))
             {
                 player.ManualPlayerDisable();
             }

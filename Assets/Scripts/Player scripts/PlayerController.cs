@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Horse horseData = null;
     [SerializeField] private Knight knightData = null;
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
     }
 
     //called when a player hit another player with a lance (checks if the player can receive damage)
-    public void ReceiveHit(Player damagingPlayer)
+    public void ReceiveHit(PlayerController damagingPlayer)
     {
         //check if damage applicable (lunging and speed requirement)
         if (canBeDamaged && damagingPlayer.lunging && Mathf.Abs(damagingPlayer.velocity) > damagingPlayer.horseData.minDamagingSpeed)
@@ -216,7 +216,7 @@ public class Player : MonoBehaviour
     }
 
     //applies damage to player, plays animation, etc
-    private IEnumerator DamageSelf(Player damagingPlayer)
+    private IEnumerator DamageSelf(PlayerController damagingPlayer)
     {
         if (canBeDamaged == false)
             yield break;
