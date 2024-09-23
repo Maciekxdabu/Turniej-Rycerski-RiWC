@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -82,6 +83,8 @@ public class Player : MonoBehaviour
         //deparent Canvas and Camera
         playerCanvas.transform.SetParent(null);
         playerCamera.transform.SetParent(null);
+        if (UISpaces.Instance != null)
+            RetargetCamera(UISpaces.Instance.UItransforms[PlayerInput.all.Count - 1]);
 
         //Add Player to CoopSetup system
         coopSetup.AddPlayer(playerSetup);
@@ -118,6 +121,7 @@ public class Player : MonoBehaviour
         lanceAnimator.speed = 1f;
 
         //setup camera (Y position in the middle of the map)
+        RetargetCamera(transform);
         Vector3 pos = playerCamera.transform.position;
         pos.y = Map.GetCameraYPosition();
         playerCamera.transform.position = pos;
@@ -259,5 +263,20 @@ public class Player : MonoBehaviour
 
         //tell the Player Manager that this Player died
         GameManager.Instance.OnPlayerDeath(this);
+    }
+
+    private void RetargetCamera(Transform newTarget)
+    {
+        PositionConstraint constraint = playerCamera.GetComponent<PositionConstraint>();
+
+        //clear constraint sources
+        while (constraint.sourceCount > 0)
+            constraint.RemoveSource(0);
+
+        //add new target to constraint
+        ConstraintSource newSource = new ConstraintSource();
+        newSource.weight = 1;
+        newSource.sourceTransform = newTarget;
+        constraint.AddSource(newSource);
     }
 }
