@@ -3613,7 +3613,6 @@ MonoBehaviour:
   startPosition: {fileID: 753804110}
   endPosition: {fileID: 1831775293}
   cameraYPosition: {fileID: 1754415099}
-  players: []
   startX: -25.14
   arenaLen: 49.69
 --- !u!4 &1314845527
@@ -3838,7 +3837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1459065424
 RectTransform:
   m_ObjectHideFlags: 0

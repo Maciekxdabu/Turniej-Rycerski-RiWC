@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //change velocity on input
         if (moveValue != 0)
         {
             velocity += Mathf.Clamp(moveValue * horseData.acceleration * Time.deltaTime, -horseData.maxSpeed, horseData.maxSpeed);
@@ -62,18 +63,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //change position based on current velocity
         position += velocity * Time.deltaTime;
 
-        if (position < 0)
-        {
-            velocity = 0;
-            position = 0;
-        }
-        else if (position > 1)
-        {
-            velocity = 0;
-            position = 1;
-        }
+        //validate position with Map
+        transform.position = Map.OnMove(this, position, line);
     }
 
     // ---------- public methods
@@ -108,10 +102,9 @@ public class PlayerController : MonoBehaviour
 
         velocity = 0f;
         line = newPosition.line;
-        position = newPosition.position;
+        position = Map.Instance.LenToUnit(newPosition.position);
         right = newPosition.right;
         Orient();
-        Map.AddPlayer(this);
 
         canBeDamaged = true;
         canLance = true;
@@ -144,6 +137,14 @@ public class PlayerController : MonoBehaviour
         input.DeactivateInput();
         velocity = 0f;
         lanceAnimator.speed = 0f;
+    }
+
+    public void OnOutOfBounds()
+    {
+        velocity = 0f;
+
+        //apply out of bounds animation based on current speed
+        //TODO
     }
 
     // ---------- Input methods (assigned in Inspector)

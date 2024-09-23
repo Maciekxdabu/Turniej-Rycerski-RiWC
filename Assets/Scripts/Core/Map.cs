@@ -29,13 +29,12 @@ public class Map : MonoBehaviour
     [SerializeField] Transform startPosition;
     [SerializeField] Transform endPosition;
     [SerializeField] Transform cameraYPosition;
-    [Space]
-    [SerializeField] List<PlayerController> players = null;
 
     [SerializeField, HideInInspector] private float startX, arenaLen;
 
     //singleton
     private static Map instance = null;
+    public static Map Instance { get { return instance; } }
 
     // ---------- Unity methods
 
@@ -45,23 +44,6 @@ public class Map : MonoBehaviour
 
         startX = startPosition.position.x;
         arenaLen = endPosition.position.x - startPosition.position.x;
-    }
-
-    private void Update()
-    {
-        int line;
-        float position;
-        foreach (PlayerController player in players)
-        {
-            (line, position) = player.GetPositions();
-
-            Vector2 pos = Vector2.zero;
-            if (line >= 0 && line < lines.Length)
-                pos.y = lines[line].position.y;
-            pos.x = startX + position * arenaLen;
-
-            player.transform.position = pos;
-        }
     }
 
     private void OnValidate()
@@ -95,6 +77,8 @@ public class Map : MonoBehaviour
 
     private bool _CanMoveLane(int currentLane, float currentPosition, bool up = true)
     {
+        currentPosition = UnitToLen(currentPosition);
+
         //check to which lane Player wants to move (and if that lane exists)
         int betweenLineIndex = -1;
         if (up)
@@ -120,9 +104,28 @@ public class Map : MonoBehaviour
         return false;
     }
 
-    private void _AddPlayer(PlayerController player)
+    private Vector2 _OnMove(PlayerController player, float position, int line)
     {
-        players.Add(player);
+        //check if line is correct
+        Debug.Assert(line >= 0 && line < lines.Length, "ERR: Incorrect Player line", player.gameObject);
+
+        //translate movement to map units
+        position = UnitToLen(position);
+
+        //check if out of bounds
+        if (position < 0)
+        {
+            player.OnOutOfBounds();
+            position = 0;
+        }
+        else if (position > 1)
+        {
+            player.OnOutOfBounds();
+            position = 1;
+        }
+
+        //return applied position
+        return new Vector2(LenToUnit(position), lines[line].position.y);
     }
 
     // ---------- public static wrappers
@@ -132,13 +135,36 @@ public class Map : MonoBehaviour
         return instance._CanMoveLane(currentLane, currentPosition, up);
     }
 
-    public static void AddPlayer(PlayerController player)
+    //method called from Player on each move attempt
+    public static Vector2 OnMove(PlayerController player, float position, int line)
     {
-        instance._AddPlayer(player);
+        return instance._OnMove(player, position, line);
     }
 
     public static float GetCameraYPosition()
     {
         return instance.cameraYPosition.position.y;
+    }
+
+    // ---------- public methods
+
+    /// <summary>
+    /// Transforms Unity units to arena length
+    /// </summary>
+    /// <param name="unit"></param>
+    /// <returns></returns>
+    public float UnitToLen(float unit)
+    {
+        return (unit - startX) / arenaLen;
+    }
+
+    /// <summary>
+    /// Transforms arena length to Unity units
+    /// </summary>
+    /// <param name="len"></param>
+    /// <returns></returns>
+    public float LenToUnit(float len)
+    {
+        return startX + len * arenaLen;
     }
 }

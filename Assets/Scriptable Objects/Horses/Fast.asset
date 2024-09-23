@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2643902b6dd7e5499863f370a0a0fac, type: 3}
   m_Name: Fast
   m_EditorClassIdentifier: 
-  <acceleration>k__BackingField: 0.4
-  <maxSpeed>k__BackingField: 0.4
-  <minDamagingSpeed>k__BackingField: 0.2
+  <acceleration>k__BackingField: 7.5
+  <maxSpeed>k__BackingField: 1.5
+  <minDamagingSpeed>k__BackingField: 0.75
   <strength>k__BackingField: 21
   <previewGraphic>k__BackingField: {fileID: 0}
