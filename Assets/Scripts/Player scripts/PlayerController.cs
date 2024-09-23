@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour
         Vector3 pos = playerCamera.transform.position;
         pos.y = MapController.GetCameraYPosition();
         playerCamera.transform.position = pos;
+        Minimap.Instance.AddPlayer(this);
 
         //activate input
         input.ActivateInput();
