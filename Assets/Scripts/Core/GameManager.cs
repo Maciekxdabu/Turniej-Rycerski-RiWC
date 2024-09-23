@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [Header("DEBUG")]
     [SerializeField] private bool DEBUG_JOINING = false;
     [Header("Values")]
-    [SerializeField] private Map.MapPosition[] spawnPositions;
+    [SerializeField] private MapController.MapPosition[] spawnPositions;
     [SerializeField] private CoopSetup coopSetup;
 
     private PlayerInputManager playerInputManager;

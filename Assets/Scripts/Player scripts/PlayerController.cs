@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         position += velocity * Time.deltaTime;
 
         //validate position with Map
-        transform.position = Map.OnMove(this, position, line);
+        transform.position = MapController.OnMove(this, position, line);
     }
 
     // ---------- public methods
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
         coopSetup.AddPlayer(playerSetup);
     }
 
-    public void OnStartGame(Map.MapPosition newPosition)
+    public void OnStartGame(MapController.MapPosition newPosition)
     {
         //enable all child objects
         for (int i = 0; i < transform.childCount; i++)
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
         velocity = 0f;
         line = newPosition.line;
-        position = Map.Instance.LenToUnit(newPosition.position);
+        position = MapController.Instance.LenToUnit(newPosition.position);
         right = newPosition.right;
         Orient();
 
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
         //setup camera (Y position in the middle of the map)
         RetargetCamera(transform);
         Vector3 pos = playerCamera.transform.position;
-        pos.y = Map.GetCameraYPosition();
+        pos.y = MapController.GetCameraYPosition();
         playerCamera.transform.position = pos;
 
         //activate input
@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnRaiseLine(InputAction.CallbackContext ctx)
     {
-        if (ctx.started && Map.CanChangeLine(line, position, true))
+        if (ctx.started && MapController.CanChangeLine(line, position, true))
         {
             line--;
         }
@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnLowerLine(InputAction.CallbackContext ctx)
     {
-        if (ctx.started && Map.CanChangeLine(line, position, false))
+        if (ctx.started && MapController.CanChangeLine(line, position, false))
         {
             line++;
         }

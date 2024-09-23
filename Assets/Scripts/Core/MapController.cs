@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map : MonoBehaviour
+public class MapController : MonoBehaviour
 {
     [System.Serializable]
     private class BetweenLine
@@ -33,8 +33,8 @@ public class Map : MonoBehaviour
     [SerializeField, HideInInspector] private float startX, arenaLen;
 
     //singleton
-    private static Map instance = null;
-    public static Map Instance { get { return instance; } }
+    private static MapController instance = null;
+    public static MapController Instance { get { return instance; } }
 
     // ---------- Unity methods
 
