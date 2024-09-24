@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerSetup playerSetup;
     [Header("REMOVE WHEN REDUNDANT")]
     [SerializeField] private SpriteRenderer knightSprite;
-    [SerializeField] private Slider healthSlider;
 
     [Header("Debug Values")]
     [SerializeField] private int line;
@@ -30,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private bool lunging = false;
     private bool canBeDamaged = true;
 
+    private float maxHealth = 100f;
     private float health = 100f;
     private float velocity = 0f;
 
@@ -97,8 +97,7 @@ public class PlayerController : MonoBehaviour
         knightData = playerSetup.GetKnight();
 
         //setup up Player values
-        health = 100f;
-        healthSlider.value = 1f;
+        health = maxHealth;
 
         velocity = 0f;
         line = newPosition.line;
@@ -234,7 +233,7 @@ public class PlayerController : MonoBehaviour
 
         // --- remove damaged health
         health -= damagingPlayer.horseData.strength;
-        healthSlider.value = health / 100f;
+        Minimap.Instance.UpdateHealth(this, health / maxHealth);
         Debug.Log("Player received damage", gameObject);
 
         // --- Invincibility time

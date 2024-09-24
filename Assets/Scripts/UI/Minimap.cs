@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class Minimap : MonoBehaviour
 {
     [System.Serializable]
     public class PlayerEntry
     {
         public Transform mainObject;
-        public Transform minimapIcon;
+        public MinimapPlayer minimapIcon;
     }
 
     // ---------- Variables
@@ -30,6 +31,8 @@ public class Minimap : MonoBehaviour
 
     private Vector2 tempPos = Vector2.zero;
 
+    private CanvasGroup mainGroup;
+
     //singleton
     private static Minimap instance;
     public static Minimap Instance { get { return instance; } }
@@ -39,6 +42,13 @@ public class Minimap : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        mainGroup = GetComponent<CanvasGroup>();
+    }
+
+    private void Start()
+    {
+        ShowMinimap(false);
     }
 
     private void Update()
@@ -52,20 +62,33 @@ public class Minimap : MonoBehaviour
             tempPos.x = tempPos.x * miniWidth + miniLowerLeftCorner.position.x;
             tempPos.y = tempPos.y * miniHeight + miniLowerLeftCorner.position.y;
 
-            player.minimapIcon.position = tempPos;
+            player.minimapIcon.transform.position = tempPos;
         }
     }
 
     // ---------- public methods
+
+    public void ShowMinimap(bool show)
+    {
+        if (show)
+            mainGroup.alpha = 1f;
+        else
+            mainGroup.alpha = 0f;
+    }
 
     public void AddPlayer(PlayerController player)
     {
         PlayerEntry newEntry = new PlayerEntry();
 
         newEntry.mainObject = player.transform;
-        newEntry.minimapIcon = Instantiate(minimapPlayerPrefab, transform).transform;
+        newEntry.minimapIcon = Instantiate(minimapPlayerPrefab, transform).GetComponent<MinimapPlayer>();
         newEntry.minimapIcon.gameObject.SetActive(true);
 
         players.Add(newEntry);
+    }
+
+    public void UpdateHealth(PlayerController player, float newValue)
+    {
+        players.Find(x => x.mainObject == player.transform)?.minimapIcon.UpdateHealth(newValue);
     }
 }

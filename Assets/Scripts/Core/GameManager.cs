@@ -113,6 +113,8 @@ public class GameManager : MonoBehaviour
                 player.OnStartGame(spawnPositions[i]);
             }
         }
+
+        Minimap.Instance.ShowMinimap(true);
     }
 
     public void ExitGameBtn()
