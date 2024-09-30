@@ -16,6 +16,7 @@ public class PlayerSetup : MonoBehaviour
     [SerializeField] private Toggle readyToggle;
     [Header("Preview Graphic")]
     [SerializeField] private Image horseImage;
+    [SerializeField] private Image knightImage;
 
     private CoopSetup coopSetup;
 
@@ -77,6 +78,10 @@ public class PlayerSetup : MonoBehaviour
     public void Init(CoopSetup _coopSetup)
     {
         coopSetup = _coopSetup;
+
+        mainGroup.alpha = 1.0f;
+
+        OnUpdateSetup();
     }
 
     public bool IsPlayerReady()
@@ -111,8 +116,11 @@ public class PlayerSetup : MonoBehaviour
             "Horse: {0}\n" +
             "Knight: {1}\n", horseToggleGroup.ChosenData, knightToggleGroup.ChosenData);
 
-        //update graphics
-        //TODO
+        //update graphics (make invisible if null)
+        horseImage.sprite = horseToggleGroup.ChosenData?.spriteLibrary.GetSprite("Preview", "Preview");
+        if (horseImage.sprite == null) horseImage.color = new Color(1, 1, 1, 0); else horseImage.color = Color.white;
+        knightImage.sprite = knightToggleGroup.ChosenData?.spriteLibrary.GetSprite("Preview", "Preview");
+        if (knightImage.sprite == null) knightImage.color = new Color(1, 1, 1, 0); else knightImage.color = Color.white;
 
         //display if Player can be ready (change some Text or something...)
         //TODO

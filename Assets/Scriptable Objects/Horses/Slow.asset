@@ -16,4 +16,4 @@ MonoBehaviour:
   <maxSpeed>k__BackingField: 0.5
   <minDamagingSpeed>k__BackingField: 0.25
   <strength>k__BackingField: 51
-  <previewGraphic>k__BackingField: {fileID: 0}
+  <spriteLibrary>k__BackingField: {fileID: 7108339969198208228, guid: 04e89b6293d4ec84db938e6dfa4c60b1, type: 3}

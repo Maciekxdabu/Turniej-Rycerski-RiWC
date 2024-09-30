@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Knight 3
   m_EditorClassIdentifier: 
   <knightName>k__BackingField: Kogut
+  <spriteLibrary>k__BackingField: {fileID: 7108339969198208228, guid: 20a5f3b60aadbef479b2a252a74562dd, type: 3}
   <nameClip>k__BackingField: {fileID: 0}
   <loseCommentClip>k__BackingField: {fileID: 0}
   <wonoCommentClip>k__BackingField: {fileID: 0}

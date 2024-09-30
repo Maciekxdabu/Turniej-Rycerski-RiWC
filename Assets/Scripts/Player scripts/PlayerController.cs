@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Horse horseData = null;
-    [SerializeField] private Knight knightData = null;
     [SerializeField] private float invincibilityTime = 1.5f;
     [Space]
+    [SerializeField] private SpriteLibrary horseSpriteLibrary;
+    [SerializeField] private SpriteLibrary knightSpriteLibrary;
     [SerializeField] private Animator lanceAnimator = null;
     [Space]
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Canvas playerCanvas;
     [SerializeField] private PlayerSetup playerSetup;
+    [SerializeField] private Horse horseData = null;
+    [SerializeField] private Knight knightData = null;
     [Header("REMOVE WHEN REDUNDANT")]
     [SerializeField] private SpriteRenderer knightSprite;
 
@@ -95,6 +98,8 @@ public class PlayerController : MonoBehaviour
         //get Coop Setup values
         horseData = playerSetup.GetHorse();
         knightData = playerSetup.GetKnight();
+        horseSpriteLibrary.spriteLibraryAsset = horseData?.spriteLibrary;
+        knightSpriteLibrary.spriteLibraryAsset = knightData?.spriteLibrary;
 
         //setup up Player values
         health = maxHealth;
