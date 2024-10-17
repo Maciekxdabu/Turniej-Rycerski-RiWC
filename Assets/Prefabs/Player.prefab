@@ -691,7 +691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0008239746}
+  m_AnchoredPosition: {x: 0, y: -0.0008544922}
   m_SizeDelta: {x: 0, y: 0.269989}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7587855004945394510
@@ -963,7 +963,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: -0.000030517578}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4820335705065113703
@@ -3529,6 +3529,7 @@ MonoBehaviour:
   invincibilityTime: 2
   horseSpriteLibrary: {fileID: 9111759337863816609}
   knightSpriteLibrary: {fileID: 7205456970779938576}
+  spriteAnimator: {fileID: 8824759848209879127}
   lanceAnimator: {fileID: 5771088663409332058}
   playerCamera: {fileID: 753898470949925514}
   playerCanvas: {fileID: 3582048890346999617}
@@ -3613,7 +3614,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 49544e8857a16ba4d86c33b6c57b2114, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89f34e09b36503b4394ac6534f9add86, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

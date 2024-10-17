@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [Space]
     [SerializeField] private SpriteLibrary horseSpriteLibrary;
     [SerializeField] private SpriteLibrary knightSpriteLibrary;
+    [SerializeField] private Animator spriteAnimator;
     [SerializeField] private Animator lanceAnimator = null;
     [Space]
     [SerializeField] private Camera playerCamera;
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
         if (moveValue != 0)
         {
             velocity += Mathf.Clamp(moveValue * horseData.acceleration * Time.deltaTime, -horseData.maxSpeed, horseData.maxSpeed);
+            spriteAnimator.SetFloat("Speed", Mathf.Abs(velocity));
 
             if (velocity < 0f)
             {
