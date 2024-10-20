@@ -21,7 +21,7 @@ MonoBehaviour:
       m_Hash: 909645484
       m_Sprite: {fileID: 21300000, guid: 89f34e09b36503b4394ac6534f9add86, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: d6853c9104b4763449b20466d3d2715b, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: cf9703e33a689464cabe794c36e85939, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 1
   - m_Name: Start
@@ -32,29 +32,29 @@ MonoBehaviour:
       m_Hash: 64810935
       m_Sprite: {fileID: 21300000, guid: 3a2f73e66c8e20140b0871f0b4a31390, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 3a2f73e66c8e20140b0871f0b4a31390, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: cf9703e33a689464cabe794c36e85939, type: 3}
     - m_Name: 2
       m_Hash: 450215437
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 74a7491cf008f95468a2f8b887129eba, type: 3}
     - m_Name: 3
       m_Hash: 768773787
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 50a4ee28547665241828e94be66692e2, type: 3}
     - m_Name: 4
       m_Hash: 867572536
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 11086da2c2439b44682349883fcd6b0e, type: 3}
     - m_Name: 5
       m_Hash: 78719918
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: da301c81990bedb4b95f7f4dba944f89, type: 3}
     m_FromMain: 1
-    m_EntryOverrideCount: 0
+    m_EntryOverrideCount: 5
   - m_Name: Run
     m_Hash: 675013152
     m_CategoryList: []
@@ -63,29 +63,29 @@ MonoBehaviour:
       m_Hash: 64810935
       m_Sprite: {fileID: 21300000, guid: 3a2f73e66c8e20140b0871f0b4a31390, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: d6853c9104b4763449b20466d3d2715b, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: b59b969b4b173694ba7151ea0f498d2b, type: 3}
     - m_Name: 2
       m_Hash: 450215437
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: f86bc0d5592e681408f8618f7f28ce3e, type: 3}
     - m_Name: 3
       m_Hash: 768773787
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 533bd438fbcf4ad4bb33b180fce0f0b0, type: 3}
     - m_Name: 4
       m_Hash: 867572536
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 1fdd11f478ff2c24ea2e1a334b4f643a, type: 3}
     - m_Name: 5
       m_Hash: 78719918
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 3eb517881d81be34cb2ce4a9c38974e9, type: 3}
     m_FromMain: 1
-    m_EntryOverrideCount: 1
+    m_EntryOverrideCount: 5
   - m_Name: Stop
     m_Hash: 426031496
     m_CategoryList: []
@@ -94,24 +94,24 @@ MonoBehaviour:
       m_Hash: 64810935
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 0ca005b148eb874458a94a3bee7e4aa5, type: 3}
     - m_Name: 2
       m_Hash: 450215437
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 19a58a02bfd83454cb5ef1e8ba88e1a4, type: 3}
     - m_Name: 3
       m_Hash: 768773787
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 2e217d2aa1997dd44bac57fc7b54d289, type: 3}
     - m_Name: 4
       m_Hash: 867572536
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 21300000, guid: 80cacb326f8781b4286f7c9bf6eb5d7b, type: 3}
     m_FromMain: 1
-    m_EntryOverrideCount: 0
+    m_EntryOverrideCount: 4
   - m_Name: Fall
     m_Hash: 459436082
     m_CategoryList: []
