@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapController : MonoBehaviour
 {
     [System.Serializable]
-    private class BetweenLine
+    public class BetweenLine
     {
         public Vector2[] passages;
     }
