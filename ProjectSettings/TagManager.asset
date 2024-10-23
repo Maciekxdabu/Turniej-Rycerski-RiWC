@@ -40,6 +40,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Bkg
+    uniqueID: 1090632889
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Plotki
+    uniqueID: 4251066843
+    locked: 0
+  - name: Front
+    uniqueID: 3090161451
     locked: 0
