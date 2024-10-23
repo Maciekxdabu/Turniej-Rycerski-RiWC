@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator lanceAnimator = null;
     [Space]
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private SortingGroup playerSortingGroup;
     [SerializeField] private Canvas playerCanvas;
     [SerializeField] private PlayerSetup playerSetup;
     [SerializeField] private Horse horseData = null;
@@ -108,6 +110,7 @@ public class PlayerController : MonoBehaviour
 
         velocity = 0f;
         line = newPosition.line;
+        playerSortingGroup.sortingOrder = line * 2;
         position = MapController.Instance.LenToUnit(newPosition.position);
         right = newPosition.right;
         Orient();
@@ -169,6 +172,7 @@ public class PlayerController : MonoBehaviour
         if (ctx.started && MapController.CanChangeLine(line, position, true))
         {
             line--;
+            playerSortingGroup.sortingOrder = line * 2;
         }
     }
 
@@ -177,6 +181,7 @@ public class PlayerController : MonoBehaviour
         if (ctx.started && MapController.CanChangeLine(line, position, false))
         {
             line++;
+            playerSortingGroup.sortingOrder = line * 2;
         }
     }
 

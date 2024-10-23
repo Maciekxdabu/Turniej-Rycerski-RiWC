@@ -1819,7 +1819,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 2.541353
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2103,7 +2103,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3980673696633931264}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3053,8 +3053,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5771088663409332063}
   m_LocalRotation: {x: -0, y: -0, z: -0.17364825, w: 0.9848078}
-  m_LocalPosition: {x: 0.18, y: 1.32, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.01, y: 0.5, z: 0}
+  m_LocalScale: {x: 0.4413, y: 0.4413, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8086881483865676807}
@@ -3217,9 +3217,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5771088663719651214}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.16, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: -0.002, y: 0.448, z: 0}
+  m_LocalScale: {x: 0.4413, y: 0.4413, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2994529746779818569}
   m_RootOrder: 1
@@ -3532,6 +3532,7 @@ MonoBehaviour:
   spriteAnimator: {fileID: 8824759848209879127}
   lanceAnimator: {fileID: 5771088663409332058}
   playerCamera: {fileID: 753898470949925514}
+  playerSortingGroup: {fileID: 2957889300222030428}
   playerCanvas: {fileID: 3582048890346999617}
   playerSetup: {fileID: 5398163732245762575}
   horseData: {fileID: 11400000, guid: 8a75151769b330148a7b0a4b245987e1, type: 2}
@@ -3567,7 +3568,7 @@ Transform:
   m_GameObject: {fileID: 5771088665093958344}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2994529746779818569}
@@ -3878,6 +3879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2994529746779818569}
   - component: {fileID: 8824759848209879127}
+  - component: {fileID: 2957889300222030428}
   m_Layer: 3
   m_Name: Main Sprites
   m_TagString: Untagged
@@ -3924,6 +3926,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &2957889300222030428
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6631304885806021453}
+  m_Enabled: 1
+  m_SortingLayerID: -43900453
+  m_SortingLayer: 1
+  m_SortingOrder: 1
 --- !u!1 &7395792904471650566
 GameObject:
   m_ObjectHideFlags: 0
@@ -5031,7 +5044,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1932520389
   m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &1288661672248333694
