@@ -1281,6 +1281,7 @@ GameObject:
   - component: {fileID: 8214157997514444778}
   - component: {fileID: 6302390061628259050}
   - component: {fileID: 7724786044504492152}
+  - component: {fileID: 4607698029271464512}
   m_Layer: 3
   m_Name: Knight ToggleGorup
   m_TagString: Untagged
@@ -1341,6 +1342,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _chosenData: {fileID: 0}
+--- !u!225 &4607698029271464512
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3120075072455734288}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3153810823063483757
 GameObject:
   m_ObjectHideFlags: 0

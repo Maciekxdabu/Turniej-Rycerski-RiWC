@@ -115,13 +115,11 @@ public class MapController : MonoBehaviour
         //check if out of bounds
         if (position < 0)
         {
-            player.OnOutOfBounds();
-            position = 0;
+            player.OnOutOfBounds(LenToUnit(0));
         }
         else if (position > 1)
         {
-            player.OnOutOfBounds();
-            position = 1;
+            player.OnOutOfBounds(LenToUnit(1));
         }
 
         //return applied position
