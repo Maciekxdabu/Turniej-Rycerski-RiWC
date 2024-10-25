@@ -55,7 +55,8 @@ public class PlayerController : MonoBehaviour
         //change velocity on input
         if (moveValue != 0)
         {
-            velocity += Mathf.Clamp(moveValue * horseData.acceleration * Time.deltaTime, -horseData.maxSpeed, horseData.maxSpeed);
+            velocity += moveValue * horseData.acceleration * Time.deltaTime;
+            velocity = Mathf.Clamp(velocity, -horseData.maxSpeed, horseData.maxSpeed);
             spriteAnimator.SetFloat("Speed", Mathf.Abs(velocity));
 
             if (velocity < 0f)
