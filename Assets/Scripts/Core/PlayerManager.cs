@@ -32,6 +32,19 @@ public class PlayerManager : MonoBehaviour
         inputManager = GetComponent<PlayerInputManager>();
     }
 
+    private void Start()
+    {
+        if (_playerDataList.Count > 0)
+        {
+            List<PlayerData> newList = new List<PlayerData>(_playerDataList);
+            _playerDataList.Clear();
+            foreach (PlayerData data in newList)
+            {
+                inputManager.JoinPlayer(controlScheme: data.controlScheme, pairWithDevices: data.devices);
+            }
+        }
+    }
+
     // ---------- public methods (called by Events)
 
     public void OnConfigurationStart()

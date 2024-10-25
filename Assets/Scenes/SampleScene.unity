@@ -1475,6 +1475,7 @@ MonoBehaviour:
     position: 0.9
     right: 0
   coopSetup: {fileID: 1930542629}
+  menuSceneName: MainMenu
 --- !u!1 &301356726
 GameObject:
   m_ObjectHideFlags: 0

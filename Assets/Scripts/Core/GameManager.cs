@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Manages the gameplay
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("Values")]
     [SerializeField] private MapController.MapPosition[] spawnPositions;
     [SerializeField] private CoopSetup coopSetup;
+    [SerializeField] private string menuSceneName;
 
     private PlayerInputManager playerInputManager;
 
@@ -117,11 +119,6 @@ public class GameManager : MonoBehaviour
         Minimap.Instance.ShowMinimap(true);
     }
 
-    public void ExitGameBtn()
-    {
-        Application.Quit();
-    }
-
     // ---------- public methods
 
     public void OnPlayerDeath(PlayerController deadPlayer)
@@ -152,5 +149,8 @@ public class GameManager : MonoBehaviour
 
         //display score/result
         //TODO
+
+        //load Main Menu Scene
+        SceneManager.LoadScene(menuSceneName);
     }
 }
