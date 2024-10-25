@@ -84,6 +84,12 @@ public class PlayerController : MonoBehaviour
         //deparent Canvas and Camera
         playerCanvas.transform.SetParent(null);
         playerCamera.transform.SetParent(null);
+        Rect rect = playerCamera.rect;
+        if (rect.y < 0.5)
+        {
+            rect.y = 0;
+            playerCamera.rect = rect;
+        }
         if (UISpaces.Instance != null)
             RetargetCamera(UISpaces.Instance.UItransforms[PlayerInput.all.Count - 1]);
 
@@ -149,9 +155,10 @@ public class PlayerController : MonoBehaviour
         lanceAnimator.speed = 0f;
     }
 
-    public void OnOutOfBounds()
+    public void OnOutOfBounds(float newPosition)
     {
         velocity = 0f;
+        position = newPosition;
 
         //apply out of bounds animation based on current speed
         //TODO
