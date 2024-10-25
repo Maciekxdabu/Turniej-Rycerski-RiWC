@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2643902b6dd7e5499863f370a0a0fac, type: 3}
   m_Name: Middle
   m_EditorClassIdentifier: 
-  <acceleration>k__BackingField: 5
-  <maxSpeed>k__BackingField: 1
-  <minDamagingSpeed>k__BackingField: 0.5
+  <acceleration>k__BackingField: 2
+  <maxSpeed>k__BackingField: 5
+  <minDamagingSpeed>k__BackingField: 2.5
   <strength>k__BackingField: 34
   <spriteLibrary>k__BackingField: {fileID: 7108339969198208228, guid: fc0f35af9985ba24bb98cce7969bf126, type: 3}

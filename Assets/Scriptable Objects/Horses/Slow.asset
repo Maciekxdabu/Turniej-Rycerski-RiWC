@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2643902b6dd7e5499863f370a0a0fac, type: 3}
   m_Name: Slow
   m_EditorClassIdentifier: 
-  <acceleration>k__BackingField: 2.5
-  <maxSpeed>k__BackingField: 0.5
-  <minDamagingSpeed>k__BackingField: 0.25
+  <acceleration>k__BackingField: 1.35
+  <maxSpeed>k__BackingField: 3.25
+  <minDamagingSpeed>k__BackingField: 1.625
   <strength>k__BackingField: 51
   <spriteLibrary>k__BackingField: {fileID: 7108339969198208228, guid: 04e89b6293d4ec84db938e6dfa4c60b1, type: 3}
