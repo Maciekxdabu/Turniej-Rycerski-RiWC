@@ -67,7 +67,7 @@ public class PlayerSetup : MonoBehaviour
 
             //enable navigation on ready toggle
             Navigation navigationData = readyToggle.navigation;
-            navigationData.mode = Navigation.Mode.Explicit;
+            navigationData.mode = Navigation.Mode.Automatic;
             readyToggle.navigation = navigationData;
         }
 
