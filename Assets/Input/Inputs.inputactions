@@ -99,6 +99,72 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "AD",
+                    "id": "6649c844-b4aa-4f01-bae7-56ebb6762276",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "62599877-7bda-4add-8e5a-0675fe5209a7",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "1d2d495d-f600-4ce5-a368-01d4351de12e",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Numpad",
+                    "id": "36280670-9423-4f1d-9a85-183589b07e21",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "50dc7cf7-7728-4a10-aeed-ca0eeb94d2c4",
+                    "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "50bb1c3b-3bda-4be0-a13e-1c0c97e08c8b",
+                    "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "b5816e8d-8b9b-4d86-a3fc-a8cd35b0e024",
                     "path": "<Keyboard>/space",
@@ -116,6 +182,28 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "RaiseLance",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e0d00717-23a5-4a9e-ae72-46991020faf1",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "RaiseLance",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f98f2d36-db2e-49a9-8e48-62230c706884",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
                     "action": "RaiseLance",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -155,6 +243,28 @@
                 },
                 {
                     "name": "",
+                    "id": "aebdacc0-b3a9-410f-856e-1d9d200f58d0",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "RaiseLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d103d243-bf9c-4661-adf3-587683c81d08",
+                    "path": "<Keyboard>/numpad8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "RaiseLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5eefc4f6-7ceb-42f5-8dce-c7fa1f94496b",
                     "path": "<Keyboard>/s",
                     "interactions": "",
@@ -182,6 +292,28 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "LowerLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a70b217-97e5-4706-91dc-a10b8c15ea03",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "LowerLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7212c14e-e907-486d-98a1-e313132db213",
+                    "path": "<Keyboard>/numpad5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
                     "action": "LowerLine",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -476,6 +608,116 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "WSAD",
+                    "id": "09b2dd81-f67f-4c0d-a5ee-cea99294e80e",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "baab288d-e783-4bbb-b169-e051b52cacf7",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "93365d76-5faa-42ef-8702-fcf028562b51",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "69a75ccd-f150-44b5-80c9-3e79f00e905a",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "4bd1e728-e6d8-492e-bae7-eeae48a8d1d4",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Numpad",
+                    "id": "1bd96ce8-6e6a-43dd-adba-f3725fa75371",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "3af71b32-d61d-48bf-a7dc-440b94782ba3",
+                    "path": "<Keyboard>/numpad8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "464ec049-8271-4526-a5c1-1332e44967bc",
+                    "path": "<Keyboard>/numpad5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "e7eaaf0e-407b-4dce-ba6a-04226e930253",
+                    "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "0161e00a-512a-4b5f-9361-cebbc06be75d",
+                    "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "4fbe70ba-b42e-412a-a7ac-9a97d835c52a",
                     "path": "*/{Submit}",
@@ -493,6 +735,28 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de646050-8ac8-45cb-9cbd-68363e319c49",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard1",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "68dc62d4-8a95-43ec-a00c-8310357e6216",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -590,6 +854,38 @@
                 {
                     "devicePath": "<Gamepad>",
                     "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard1",
+            "bindingGroup": "Keyboard1",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard2",
+            "bindingGroup": "Keyboard2",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]

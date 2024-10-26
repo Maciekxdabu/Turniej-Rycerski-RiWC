@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
         public int playerIndex;
         public string controlScheme;
         public InputDevice[] devices;
+        public PlayerDeviceSetup deviceSetup;
     }
 
     [SerializeField] private Transform[] spawnPositions;
@@ -23,7 +24,8 @@ public class PlayerManager : MonoBehaviour
 
     //static values
     private static List<PlayerData> _playerDataList = new List<PlayerData>();
-    public static List<PlayerData> PlayerDataList { get { return _playerDataList; } }
+    private static List<PlayerData> _finalPlayerDataList = new List<PlayerData>();
+    public static List<PlayerData> PlayerDataList { get { return _finalPlayerDataList; } }
 
     // ---------- Unity messages
 
@@ -50,14 +52,53 @@ public class PlayerManager : MonoBehaviour
     public void OnConfigurationStart()
     {
         inputManager.EnableJoining();
+
+        foreach (PlayerInput player in PlayerInput.all)
+        {
+            player.ActivateInput();
+        }
     }
 
     public void OnConfigurationEnd()
     {
         //configure split-devices, etc.)
-        //TODO
+        _finalPlayerDataList.Clear();
+        foreach (PlayerData data in _playerDataList)
+        {
+            if (data.deviceSetup.split && data.controlScheme == "Keyboard&Mouse")//add split keyboard (2 Players)
+            {
+                Debug.Log("Split Players keyboard");
+
+                PlayerData newData1 = new PlayerData();
+                PlayerData newData2 = new PlayerData();
+
+                //newData1.playerIndex = data.playerIndex;
+                newData1.controlScheme = "Keyboard1";
+                newData2.controlScheme = "Keyboard2";
+                newData1.devices = data.devices;
+                newData2.devices = data.devices;
+
+                _finalPlayerDataList.Add(newData1);
+                _finalPlayerDataList.Add(newData2);
+            }
+            else//add single keyboard/device (1 Player)
+            {
+                PlayerData newData = new PlayerData();
+
+                //newData.playerIndex = data.playerIndex;
+                newData.controlScheme = data.controlScheme;
+                newData.devices = data.devices;
+
+                _finalPlayerDataList.Add(newData);
+            }
+        }
 
         inputManager.DisableJoining();
+
+        foreach (PlayerInput player in PlayerInput.all)
+        {
+            player.DeactivateInput();
+        }
     }
 
     // ---------- public methods (called by PlayerInputManager)
@@ -73,6 +114,7 @@ public class PlayerManager : MonoBehaviour
         data.playerIndex = player.playerIndex;
         data.controlScheme = player.currentControlScheme;
         data.devices = player.devices.ToArray();
+        data.deviceSetup = player.GetComponent<PlayerDeviceSetup>();
 
         _playerDataList.Add(data);
         debugList.Add(data);
