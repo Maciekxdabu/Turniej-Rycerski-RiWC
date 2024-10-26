@@ -28,8 +28,13 @@ public class PlayerDeviceSetup : MonoBehaviour
     {
         if (ctx.started && playerInput.currentControlScheme == "Keyboard&Mouse")
         {
-            _split = !_split;
-            splitDeviceSprite.enabled = _split;
+            SetSplit(!_split);
         }
+    }
+
+    public void SetSplit(bool newSplit)
+    {
+        _split = newSplit;
+        splitDeviceSprite.enabled = _split;
     }
 }

@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
         public string controlScheme;
         public InputDevice[] devices;
         public PlayerDeviceSetup deviceSetup;
+        public bool stashedSplit = false;
     }
 
     [SerializeField] private Transform[] spawnPositions;
@@ -42,7 +43,9 @@ public class PlayerManager : MonoBehaviour
             _playerDataList.Clear();
             foreach (PlayerData data in newList)
             {
-                inputManager.JoinPlayer(controlScheme: data.controlScheme, pairWithDevices: data.devices);
+                PlayerInput player = inputManager.JoinPlayer(controlScheme: data.controlScheme, pairWithDevices: data.devices);
+                player.GetComponent<PlayerDeviceSetup>().SetSplit(data.stashedSplit);
+                _playerDataList.Find(x => x.playerIndex == data.playerIndex).stashedSplit = data.stashedSplit;
             }
         }
     }
@@ -91,6 +94,8 @@ public class PlayerManager : MonoBehaviour
 
                 _finalPlayerDataList.Add(newData);
             }
+
+            data.stashedSplit = data.deviceSetup.split;
         }
 
         inputManager.DisableJoining();
