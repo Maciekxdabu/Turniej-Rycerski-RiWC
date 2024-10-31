@@ -89,6 +89,10 @@ public class Minimap : MonoBehaviour
 
     public void UpdateHealth(PlayerController player, float newValue)
     {
-        players.Find(x => x.mainObject == player.transform)?.minimapIcon.UpdateHealth(newValue);
+        PlayerEntry mapPlayer = players.Find(x => x.mainObject == player.transform);
+        if (mapPlayer.mainObject != null && newValue > 0)
+            mapPlayer.minimapIcon.UpdateHealth(newValue);
+        else
+            mapPlayer.minimapIcon.gameObject.SetActive(false);
     }
 }
