@@ -80,22 +80,26 @@ public class PlayerController : MonoBehaviour
 
     // ---------- public methods
 
-    public void Init(CoopSetup coopSetup)
+    public IEnumerator Init(CoopSetup coopSetup, int splitScreenIndex)
     {
         //deparent Canvas and Camera
         playerCanvas.transform.SetParent(null);
         playerCamera.transform.SetParent(null);
-        Rect rect = playerCamera.rect;
-        if (rect.y < 0.5)
-        {
-            rect.y = 0;
-            playerCamera.rect = rect;
-        }
         if (UISpaces.Instance != null)
             RetargetCamera(UISpaces.Instance.UItransforms[PlayerInput.all.Count - 1]);
 
         //Add Player to CoopSetup system
         coopSetup.AddPlayer(playerSetup);
+
+        yield return new WaitForEndOfFrame();
+
+        //set the bottom Cameras correctly on the screen
+        Rect rect = playerCamera.rect;
+        if (splitScreenIndex > 1)
+        {
+            rect.y = 0;
+            playerCamera.rect = rect;
+        }
     }
 
     public void OnStartGame(MapController.MapPosition newPosition)

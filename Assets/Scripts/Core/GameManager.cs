@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Init Player
-        player.Init(coopSetup);
+        StartCoroutine(player.Init(coopSetup, playerInput.splitScreenIndex));
 
         return;
     }
