@@ -9,8 +9,6 @@ public class MenuController : MonoBehaviour
     [SerializeField] private CanvasGroup startingGroup;
     [Tooltip("Only used for setting up the groups on Start")]
     [SerializeField] private CanvasGroup[] registeredGroups;
-    [Header("Gameplay")]
-    [SerializeField] private PlayerManager playerManager;
 
     private List<CanvasGroup> canvasGroups = new List<CanvasGroup>();
 
@@ -25,7 +23,7 @@ public class MenuController : MonoBehaviour
             group.ignoreParentGroups = true;
         }
 
-        //enable the first CanvasGroup
+        //enable the first CanvasGroup and add it to canvas stack
         canvasGroups.Clear();
         if (startingGroup != null)
         {
@@ -65,22 +63,14 @@ public class MenuController : MonoBehaviour
         EnableCanvasGroup(canvasGroups[canvasGroups.Count - 1]);
     }
 
+    public void OnLoadNewScene(string sceneToLoad)
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
+
     public void OnExitGameBtn()
     {
         Application.Quit();
-    }
-
-    public void OnLevelClickedBtn(string sceneToLoad)
-    {
-        if (PlayerManager.PlayerDataList.Count > 1)
-            SceneManager.LoadScene(sceneToLoad);
-        else
-            Debug.LogWarning("WAR: You need at least 2 players to start the game");
-    }
-
-    public void OnConfigurationClickedBtn()
-    {
-        playerManager.OnConfigurationStart();
     }
 
     // ---------- private methods
