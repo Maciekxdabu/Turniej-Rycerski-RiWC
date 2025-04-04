@@ -104,7 +104,7 @@ public class MapController : MonoBehaviour
         return false;
     }
 
-    private Vector2 _OnMove(PlayerController player, float position, int line)
+    private Vector2 _OnMove(PlayerBrain player, float position, int line)
     {
         //check if line is correct
         Debug.Assert(line >= 0 && line < lines.Length, "ERR: Incorrect Player line", player.gameObject);
@@ -134,7 +134,7 @@ public class MapController : MonoBehaviour
     }
 
     //method called from Player on each move attempt
-    public static Vector2 OnMove(PlayerController player, float position, int line)
+    public static Vector2 OnMove(PlayerBrain player, float position, int line)
     {
         return instance._OnMove(player, position, line);
     }

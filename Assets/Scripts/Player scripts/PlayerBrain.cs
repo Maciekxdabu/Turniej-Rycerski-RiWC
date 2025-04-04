@@ -8,7 +8,7 @@ using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
-public class PlayerController : MonoBehaviour
+public class PlayerBrain : MonoBehaviour
 {
     [SerializeField] private float invincibilityTime = 1.5f;
     [Space]
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //called when a player hit another player with a lance (checks if the player can receive damage)
-    public void ReceiveHit(PlayerController damagingPlayer)
+    public void ReceiveHit(PlayerBrain damagingPlayer)
     {
         //check if damage applicable (lunging and speed requirement)
         if (canBeDamaged && damagingPlayer.lunging && Mathf.Abs(damagingPlayer.velocity) > damagingPlayer.horseData.minDamagingSpeed)
@@ -241,7 +241,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //applies damage to player, plays animation, etc
-    private IEnumerator DamageSelf(PlayerController damagingPlayer)
+    private IEnumerator DamageSelf(PlayerBrain damagingPlayer)
     {
         if (canBeDamaged == false)
             yield break;

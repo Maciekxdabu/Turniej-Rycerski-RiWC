@@ -76,7 +76,7 @@ public class Minimap : MonoBehaviour
             mainGroup.alpha = 0f;
     }
 
-    public void AddPlayer(PlayerController player)
+    public void AddPlayer(PlayerBrain player)
     {
         PlayerEntry newEntry = new PlayerEntry();
 
@@ -87,7 +87,7 @@ public class Minimap : MonoBehaviour
         players.Add(newEntry);
     }
 
-    public void UpdateHealth(PlayerController player, float newValue)
+    public void UpdateHealth(PlayerBrain player, float newValue)
     {
         PlayerEntry mapPlayer = players.Find(x => x.mainObject == player.transform);
         if (mapPlayer.mainObject != null && newValue > 0)
