@@ -417,6 +417,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JoinLocalGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""e3076d81-8fda-40ea-9322-e9c6d6a6d80f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -848,6 +857,28 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fdf486a-70c0-4c55-91d9-e1976470ccc9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""JoinLocalGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74169688-2ce8-4272-a9f2-b2e969481cf0"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""JoinLocalGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -930,6 +961,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
+        m_UI_JoinLocalGame = m_UI.FindAction("JoinLocalGame", throwIfNotFound: true);
     }
 
     ~@Inputs()
@@ -1075,6 +1107,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_ScrollWheel;
     private readonly InputAction m_UI_MiddleClick;
     private readonly InputAction m_UI_RightClick;
+    private readonly InputAction m_UI_JoinLocalGame;
     public struct UIActions
     {
         private @Inputs m_Wrapper;
@@ -1087,6 +1120,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
         public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
+        public InputAction @JoinLocalGame => m_Wrapper.m_UI_JoinLocalGame;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1120,6 +1154,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @RightClick.started += instance.OnRightClick;
             @RightClick.performed += instance.OnRightClick;
             @RightClick.canceled += instance.OnRightClick;
+            @JoinLocalGame.started += instance.OnJoinLocalGame;
+            @JoinLocalGame.performed += instance.OnJoinLocalGame;
+            @JoinLocalGame.canceled += instance.OnJoinLocalGame;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1148,6 +1185,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @RightClick.started -= instance.OnRightClick;
             @RightClick.performed -= instance.OnRightClick;
             @RightClick.canceled -= instance.OnRightClick;
+            @JoinLocalGame.started -= instance.OnJoinLocalGame;
+            @JoinLocalGame.performed -= instance.OnJoinLocalGame;
+            @JoinLocalGame.canceled -= instance.OnJoinLocalGame;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1218,5 +1258,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnScrollWheel(InputAction.CallbackContext context);
         void OnMiddleClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
+        void OnJoinLocalGame(InputAction.CallbackContext context);
     }
 }

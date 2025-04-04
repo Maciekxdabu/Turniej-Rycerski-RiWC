@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
-using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
+using UnityEngine.InputSystem.Utilities;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerBrain : MonoBehaviour
 {
     [SerializeField] private float invincibilityTime = 1.5f;
@@ -17,7 +17,6 @@ public class PlayerBrain : MonoBehaviour
     [SerializeField] private Animator spriteAnimator;
     [SerializeField] private Animator lanceAnimator = null;
     [Space]
-    [SerializeField] private Camera playerCamera;
     [SerializeField] private SortingGroup playerSortingGroup;
     [SerializeField] private Canvas playerCanvas;
     [SerializeField] private PlayerSetup playerSetup;
@@ -40,42 +39,55 @@ public class PlayerBrain : MonoBehaviour
     private float velocity = 0f;
 
     //inputs
-    private PlayerInput input;
+    private bool inputActive = false;
     private float moveValue = 0f;
+
+    //singleton list
+    private static List<PlayerBrain> _all = new List<PlayerBrain>();
+    public static ReadOnlyArray<PlayerBrain> all { get { return new ReadOnlyArray<PlayerBrain>(_all.ToArray()); } }
 
     // ---------- Unity methods
 
     private void Awake()
     {
-        input = GetComponent<PlayerInput>();
+        _all.Add(this);
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        _all.Remove(this);
     }
 
     private void Update()
     {
         //change velocity on input
-        if (moveValue != 0)
+        if (false)//TODO - DEBUG - REMOVE WHEN NECESSARY
         {
-            velocity += moveValue * horseData.acceleration * Time.deltaTime;
-            velocity = Mathf.Clamp(velocity, -horseData.maxSpeed, horseData.maxSpeed);
-            spriteAnimator.SetFloat("Speed", Mathf.Abs(velocity));
+            if (moveValue != 0)
+            {
+                velocity += moveValue * horseData.acceleration * Time.deltaTime;
+                velocity = Mathf.Clamp(velocity, -horseData.maxSpeed, horseData.maxSpeed);
+                spriteAnimator.SetFloat("Speed", Mathf.Abs(velocity));
 
-            if (velocity < 0f)
-            {
-                right = false;
-                Orient();
+                if (velocity < 0f)
+                {
+                    right = false;
+                    Orient();
+                }
+                else if (velocity > 0f)
+                {
+                    right = true;
+                    Orient();
+                }
             }
-            else if (velocity > 0f)
-            {
-                right = true;
-                Orient();
-            }
+
+            //change position based on current velocity
+            position += velocity * Time.deltaTime;
+
+            //validate position with Map
+            transform.position = MapController.OnMove(this, position, line);
         }
-
-        //change position based on current velocity
-        position += velocity * Time.deltaTime;
-
-        //validate position with Map
-        transform.position = MapController.OnMove(this, position, line);
     }
 
     // ---------- public methods
@@ -84,9 +96,8 @@ public class PlayerBrain : MonoBehaviour
     {
         //deparent Canvas and Camera
         playerCanvas.transform.SetParent(null);
-        playerCamera.transform.SetParent(null);
-        if (UISpaces.Instance != null)
-            RetargetCamera(UISpaces.Instance.UItransforms[PlayerInput.all.Count - 1]);
+        //if (UISpaces.Instance != null)
+        //    RetargetCamera(UISpaces.Instance.UItransforms[PlayerInput.all.Count - 1]);
 
         //Add Player to CoopSetup system
         coopSetup.AddPlayer(playerSetup);
@@ -94,12 +105,12 @@ public class PlayerBrain : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //set the bottom Cameras correctly on the screen
-        Rect rect = playerCamera.rect;
-        if (splitScreenIndex > 1)
-        {
-            rect.y = 0;
-            playerCamera.rect = rect;
-        }
+        //Rect rect = playerCamera.rect;
+        //if (splitScreenIndex > 1)
+        //{
+        //    rect.y = 0;
+        //    playerCamera.rect = rect;
+        //}
     }
 
     public void OnStartGame(MapController.MapPosition newPosition)
@@ -134,14 +145,10 @@ public class PlayerBrain : MonoBehaviour
         lanceAnimator.speed = 1f;
 
         //setup camera (Y position in the middle of the map)
-        RetargetCamera(transform);
-        Vector3 pos = playerCamera.transform.position;
-        pos.y = MapController.GetCameraYPosition();
-        playerCamera.transform.position = pos;
         Minimap.Instance.AddPlayer(this);
 
         //activate input
-        input.ActivateInput();
+        ActivateInput();
         //input.SwitchCurrentActionMap("Player");//Will be needed if Player will start with another default Action Map (UI technically does not matter)
     }
 
@@ -155,7 +162,7 @@ public class PlayerBrain : MonoBehaviour
 
     public void ManualPlayerDisable()
     {
-        input.DeactivateInput();
+        DeactivateInput();
         velocity = 0f;
         lanceAnimator.speed = 0f;
     }
@@ -169,41 +176,73 @@ public class PlayerBrain : MonoBehaviour
         //TODO
     }
 
-    // ---------- Input methods (assigned in Inspector)
+    // ---------- Command methods (called by assigned PlayerController) (will work only if input is activated)
 
-    public void OnMove(InputAction.CallbackContext ctx)
+    public void CmdMove(float moveDir)
     {
-        if (ctx.performed)
-            moveValue = ctx.ReadValue<float>();
-        else if (ctx.canceled)
-            moveValue = 0f;
+        if (!CanBeControlled())
+            return;
+
+        moveValue = moveDir;
     }
 
-    public void OnRaiseLine(InputAction.CallbackContext ctx)
+    public void CmdRaiseLine()
     {
-        if (ctx.started && MapController.CanChangeLine(line, position, true))
+        if (!CanBeControlled())
+            return;
+
+        if (MapController.CanChangeLine(line, position, true))
         {
             line--;
             playerSortingGroup.sortingOrder = line * 2;
         }
     }
 
-    public void OnLowerLine(InputAction.CallbackContext ctx)
+    public void CmdLowerLine()
     {
-        if (ctx.started && MapController.CanChangeLine(line, position, false))
+        if (!CanBeControlled())
+            return;
+
+        if (MapController.CanChangeLine(line, position, false))
         {
             line++;
             playerSortingGroup.sortingOrder = line * 2;
         }
     }
 
-    public void OnRaiseLance(InputAction.CallbackContext ctx)
+    public void CmdRaiseLance()
     {
-        if (canLance && ctx.started)
+        if (!CanBeControlled())
+            return;
+
+        if (canLance)
         {
             canLance = false;
             lanceAnimator.SetTrigger("MoveLanceUp");
         }
+    }
+
+    public void ActivateInput()
+    {
+        inputActive = true;
+    }
+
+    public void DeactivateInput()
+    {
+        inputActive = false;
+    }
+
+    private bool CanBeControlled()
+    {
+        return inputActive;
+    }
+
+    // ---------- Configure methods
+
+    public void ApplyConfiguration(Horse horse, Knight knight)
+    {
+        horseData = horse;
+        knightData = knight;
     }
 
     // ---------- public getters
@@ -248,7 +287,7 @@ public class PlayerBrain : MonoBehaviour
         canBeDamaged = false;
 
         //disable input
-        input.DeactivateInput();
+        DeactivateInput();
         velocity = 0;
         //play animation (which applies cooldown) (maybe a Corutine)
         Color color = knightSprite.color;
@@ -272,14 +311,14 @@ public class PlayerBrain : MonoBehaviour
             OnPlayerDeath();
         else//reactivate input if player is still alive
         {
-            input.ActivateInput();
+            ActivateInput();
             canBeDamaged = true;
         }
     }
 
     private void OnPlayerDeath()
     {
-        input.DeactivateInput();
+        DeactivateInput();
         //disable all child objects
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -288,20 +327,5 @@ public class PlayerBrain : MonoBehaviour
 
         //tell the Player Manager that this Player died
         GameManager.Instance.OnPlayerDeath(this);
-    }
-
-    private void RetargetCamera(Transform newTarget)
-    {
-        PositionConstraint constraint = playerCamera.GetComponent<PositionConstraint>();
-
-        //clear constraint sources
-        while (constraint.sourceCount > 0)
-            constraint.RemoveSource(0);
-
-        //add new target to constraint
-        ConstraintSource newSource = new ConstraintSource();
-        newSource.weight = 1;
-        newSource.sourceTransform = newTarget;
-        constraint.AddSource(newSource);
     }
 }
