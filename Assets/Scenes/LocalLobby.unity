@@ -631,7 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49cb224ac009c724ebb3596c09255911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameplayScene: SampleScene
+  gameplayScene: GameplayScene
   playerSetups:
   - {fileID: 472924188}
   - {fileID: 1836142232}

@@ -7,22 +7,19 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Manages the gameplay
-/// Joins registered players and sends them to the Setup
-/// After setup ends, it initializes the gameplay
+/// It checks the existing PlayerBrain's instances from its static field and initializes them for gameplay
+/// After initialization ends, it starts the gameplay
 /// </summary>
-[RequireComponent(typeof(PlayerInputManager))]
 public class GameManager : MonoBehaviour
 {
     [Header("DEBUG")]
     [SerializeField] private bool DEBUG_JOINING = false;
     [Header("Values")]
-    [SerializeField] private MapController.MapPosition[] spawnPositions;
-    [SerializeField] private CoopSetup coopSetup;
+    [SerializeField] private GamePlayer[] gamePlayers;
     [SerializeField] private string menuSceneName;
 
-    private PlayerInputManager playerInputManager;
-
     private List<PlayerBrain> activePlayers = new List<PlayerBrain>();
+    private List<PlayerBrain> deadPlayers = new List<PlayerBrain>();
 
     //singleton
     private static GameManager _instance;
@@ -33,98 +30,45 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-
-        //get needed references
-        playerInputManager = GetComponent<PlayerInputManager>();
     }
 
     private void Start()
     {
-        playerInputManager.EnableJoining();
-
-        if (PlayerManager.PlayerDataList.Count > 0)
+        //Add "automatic" Players if Debug joining is enabled
+        if (DEBUG_JOINING)
         {
-            for (int i = 0; i < PlayerManager.PlayerDataList.Count; i++)
-            {
-                PlayerManager.PlayerData playerData = PlayerManager.PlayerDataList[i];
-                //playerInputManager.JoinPlayer(playerData.playerIndex, i, playerData.controlScheme, playerData.devices);
-                playerInputManager.JoinPlayer(controlScheme: playerData.controlScheme, pairWithDevices: playerData.devices);
-            }
-        }
-        else if (DEBUG_JOINING)
-        {
-            PlayerInput player;
-            do
-            {
-                player = playerInputManager.JoinPlayer();
-            }
-            while (player != null);
+            //TODO
         }
 
-        playerInputManager.DisableJoining();
-    }
+        //Check if the game can be started (correct number of Players, etc.)
+        //TODO
 
-    // ---------- Player Input Manager messages
-
-    //should make sure the player joined correctly (e.g. correct prefab) (only configurations which need to happen only once)
-    public void OnPlayerJoined(PlayerInput playerInput)
-    {
-        if (playerInput.devices.Count == 0)
-            return;
-        Debug.Log("New player joined in gameplay");
-
-        playerInput.DeactivateInput();
-        PlayerBrain player = playerInput.GetComponent<PlayerBrain>();
-        if (player == null)
-        {
-            Debug.LogWarning("ERR: Player attempted to spawn/join without a Player Component... Removing...", gameObject);
-            Destroy(playerInput.gameObject);
-            return;
-        }
-
-        //Init Player
-        StartCoroutine(player.Init(coopSetup, playerInput.splitScreenIndex));
-
-        return;
-    }
-
-    public void OnPlayerLeft(PlayerInput playerInput)
-    {
-        Debug.LogWarning("WAR: Player left during gameplay, this should not happen", gameObject);
-    }
-
-    // ---------- public methods (UI Buttons)
-
-    public void StartGame()
-    {
-        if (PlayerInput.all.Count <= 0)
-        {
-            Debug.LogWarning("WAR: There is not enough Players to start the game, at least 1 Player is required", gameObject);
-            return;
-        }
-
-        Debug.Log("===Started the game!");
-
-        //setup players
+        //initialize the Players present
         activePlayers.Clear();
-        for (int i = 0; i < PlayerInput.all.Count; i++)
+        deadPlayers.Clear();
+        for (int i=0; i<PlayerBrain.all.Count; i++)
         {
-            if (PlayerInput.all[i].TryGetComponent<PlayerBrain>(out PlayerBrain player))
-            {
-                activePlayers.Add(player);
-                player.OnStartGame(spawnPositions[i]);
-            }
+            InitializePlayer(PlayerBrain.all[i]);
         }
 
-        Minimap.Instance.ShowMinimap(true);
+        //Cleanup/do something with the rest of the GamePlayers
+        for (int i=activePlayers.Count-1; i<gamePlayers.Length; i++)
+        {
+            //TODO
+        }
+
+        //once all Players are initialized, start the gameplay
+        StartGame();
     }
 
     // ---------- public methods
 
+    //event for GameManager to react to Player death (Players should handle their death themselves)
     public void OnPlayerDeath(PlayerBrain deadPlayer)
     {
-        //remove player from alive list
+        //remove player from alive list and move to dead list
         activePlayers.Remove(deadPlayer);
+        deadPlayers.Add(deadPlayer);
 
         //check if there is a single winner present
         if (activePlayers.Count <= 1)
@@ -135,16 +79,38 @@ public class GameManager : MonoBehaviour
 
     // ---------- private methods
 
+    //Initializes the Player
+    private void InitializePlayer(PlayerBrain brain)
+    {
+        //check Player type (player, observer, etc.)
+        //TODO - for later
+
+        //Assign PlayerBrain to a GamePlayer and initialize it
+        GamePlayer gamePlayer = gamePlayers[activePlayers.Count];
+        brain.InitForGameplay(gamePlayer);
+
+        //Add player to activePlayers list
+        activePlayers.Add(brain);
+    }
+
+    private void StartGame()
+    {
+        Debug.Log("===Started the game!===");
+
+        //inform players
+        foreach (PlayerBrain brain in activePlayers)
+        {
+            brain.OnStartGame();
+        }
+    }
+
     private void OnGameFinished()
     {
         // --- after game finishes
-        //disable all players inputs (not only the winning one, because the match could end in different ways)
-        for (int i = 0; i < PlayerInput.all.Count; i++)
+        //inform players
+        foreach (PlayerBrain brain in activePlayers)
         {
-            if (PlayerInput.all[i].TryGetComponent<PlayerBrain>(out PlayerBrain player))
-            {
-                player.ManualPlayerDisable();
-            }
+            brain.OnGameFinished();
         }
 
         //display score/result

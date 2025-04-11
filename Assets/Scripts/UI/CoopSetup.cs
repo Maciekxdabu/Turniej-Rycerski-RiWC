@@ -33,7 +33,5 @@ public class CoopSetup : MonoBehaviour
     {
         foreach (PlayerSetup p in players)
             p.DisableSetup();
-
-        GameManager.Instance.StartGame();
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class LungePointCollision : MonoBehaviour
 {
-    [SerializeField] private PlayerBrain ownerPlayer;
+    [SerializeField] private GamePlayer ownerPlayer;
     [SerializeField] private LayerMask knightsMask;
 
     // ---------- Unity messages
@@ -17,7 +17,7 @@ public class LungePointCollision : MonoBehaviour
         foreach (Collider2D collider in colliders)
         {
             //check if the hit object is a Player and exclude owner Player
-            PlayerBrain player = collider.gameObject.GetComponentInParent<PlayerBrain>();
+            GamePlayer player = collider.gameObject.GetComponentInParent<GamePlayer>();
             if (player != null && player != ownerPlayer)
             {
                 //give damage to hit player (if player can take damage)

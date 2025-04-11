@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
+    public enum PositionState
+    {
+        Normal,
+        OutOfBoundsLeft,
+        OutOfBoundsRight,
+        Invalid
+    }
+
     [System.Serializable]
     public class BetweenLine
     {
@@ -34,7 +42,15 @@ public class MapController : MonoBehaviour
 
     //singleton
     private static MapController instance = null;
-    public static MapController Instance { get { return instance; } }
+    public static MapController Instance { 
+        get 
+        {
+            if (Application.isPlaying)
+                return instance;
+            else
+                return FindAnyObjectByType<MapController>();
+        } 
+    }
 
     // ---------- Unity methods
 
@@ -104,7 +120,7 @@ public class MapController : MonoBehaviour
         return false;
     }
 
-    private Vector2 _OnMove(PlayerBrain player, float position, int line)
+    private (Vector2, PositionState) _OnMove(GamePlayer player, float position, int line)
     {
         //check if line is correct
         Debug.Assert(line >= 0 && line < lines.Length, "ERR: Incorrect Player line", player.gameObject);
@@ -113,35 +129,38 @@ public class MapController : MonoBehaviour
         position = UnitToLen(position);
 
         //check if out of bounds
+        PositionState outOfBounds = PositionState.Normal;
         if (position < 0)
         {
-            player.OnOutOfBounds(LenToUnit(0));
+            outOfBounds = PositionState.OutOfBoundsLeft;
+            //player.OnOutOfBounds(LenToUnit(0));
         }
         else if (position > 1)
         {
-            player.OnOutOfBounds(LenToUnit(1));
+            outOfBounds = PositionState.OutOfBoundsRight;
+            //player.OnOutOfBounds(LenToUnit(1));
         }
 
         //return applied position
-        return new Vector2(LenToUnit(position), lines[line].position.y);
+        return (new Vector2(LenToUnit(position), lines[line].position.y), outOfBounds);
     }
 
     // ---------- public static wrappers
 
     public static bool CanChangeLine(int currentLane, float currentPosition, bool up = true)
     {
-        return instance._CanMoveLane(currentLane, currentPosition, up);
+        return Instance._CanMoveLane(currentLane, currentPosition, up);
     }
 
     //method called from Player on each move attempt
-    public static Vector2 OnMove(PlayerBrain player, float position, int line)
+    public static (Vector2, PositionState) OnMove(GamePlayer player, float position, int line)
     {
-        return instance._OnMove(player, position, line);
+        return Instance._OnMove(player, position, line);
     }
 
     public static float GetCameraYPosition()
     {
-        return instance.cameraYPosition.position.y;
+        return Instance.cameraYPosition.position.y;
     }
 
     // ---------- public methods
