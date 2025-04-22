@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("DEBUG")]
     [SerializeField] private bool DEBUG_JOINING = false;
+    [SerializeField] private GameObject playerBrainPrefab = null;
     [Header("Values")]
     [SerializeField] private GamePlayer[] gamePlayers;
     [SerializeField] private string menuSceneName;
@@ -35,9 +36,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //Add "automatic" Players if Debug joining is enabled
-        if (DEBUG_JOINING)
+        if (DEBUG_JOINING && PlayerBrain.all.Count == 0)
         {
-            //TODO
+            PlayerInput.Instantiate(playerBrainPrefab, controlScheme: "Keyboard1", pairWithDevice: Keyboard.current);
+            PlayerInput.Instantiate(playerBrainPrefab, controlScheme: "Keyboard2", pairWithDevice: Keyboard.current);
         }
 
         //Check if the game can be started (correct number of Players, etc.)

@@ -1517,6 +1517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_JOINING: 1
+  playerBrainPrefab: {fileID: 5771088664030117438, guid: c9a9fa0f640518f408934c941f62af13, type: 3}
   gamePlayers:
   - {fileID: 271700945}
   - {fileID: 1400431609}

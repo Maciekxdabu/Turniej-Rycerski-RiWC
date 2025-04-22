@@ -79,9 +79,12 @@ public class GamePlayer : MonoBehaviour
     private void OnValidate()
     {
         //Update transform and visuals based on Map position
-        (transform.position, _) = MapController.OnMove(this, position, line);
-        playerSortingGroup.sortingOrder = line * 2;
-        Orient();
+        if (MapController.Instance != null)
+        {
+            (transform.position, _) = MapController.OnMove(this, position, line);
+            playerSortingGroup.sortingOrder = line * 2;
+            Orient();
+        }
     }
 
     // ---------- public methods

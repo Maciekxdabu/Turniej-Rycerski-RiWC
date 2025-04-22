@@ -13,6 +13,12 @@ public class PlayerInputController : MonoBehaviour
     private PlayerBrain brain;
     private PlayerInput playerInput;
 
+    private void Awake()
+    {
+        brain = GetComponent<PlayerBrain>();
+        playerInput = GetComponent<PlayerInput>();
+    }
+
     // ---------- Configure methods
 
     /// <summary>
