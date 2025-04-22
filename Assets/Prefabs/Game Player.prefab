@@ -127,8 +127,8 @@ MonoBehaviour:
   eventsToRun:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7434018864792268454}
+        m_TargetAssemblyTypeName: GamePlayer, Assembly-CSharp
         m_MethodName: ResetLance
         m_Mode: 1
         m_Arguments:
@@ -141,8 +141,8 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7434018864792268454}
+        m_TargetAssemblyTypeName: GamePlayer, Assembly-CSharp
         m_MethodName: OnLungeStart
         m_Mode: 1
         m_Arguments:
@@ -155,8 +155,8 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7434018864792268454}
+        m_TargetAssemblyTypeName: GamePlayer, Assembly-CSharp
         m_MethodName: OnLungeEnd
         m_Mode: 1
         m_Arguments:
@@ -403,7 +403,8 @@ MonoBehaviour:
   spriteAnimator: {fileID: 8824759848209879127}
   lanceAnimator: {fileID: 5771088663409332058}
   playerSortingGroup: {fileID: 2957889300222030428}
-  knightSprite: {fileID: 0}
+  disabledPlayerGroup: {fileID: 0}
+  knightSprite: {fileID: 5771088663719651208}
   line: 0
   position: 0
   right: 1
@@ -642,7 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6b7ab9059faeb4a865eaac3c8f06bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerPlayer: {fileID: 0}
+  ownerPlayer: {fileID: 7434018864792268454}
   knightsMask:
     serializedVersion: 2
     m_Bits: 8

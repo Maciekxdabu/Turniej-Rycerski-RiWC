@@ -1215,22 +1215,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2443468684129614999, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: ownerPlayer
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5771088664030117433, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -19
@@ -3859,25 +3843,9 @@ PrefabInstance:
       propertyPath: m_NormalizedViewPortRect.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2443468684129614999, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: ownerPlayer
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2957889300222030428, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: m_SortingOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5771088664030117433, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5094,22 +5062,6 @@ PrefabInstance:
     - target: {fileID: 2242481212761635076, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2443468684129614999, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: ownerPlayer
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5771088664030117433, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6563,25 +6515,9 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 2443468684129614999, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: ownerPlayer
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2957889300222030428, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: m_SortingOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5771088663409332059, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
-      propertyPath: eventsToRun.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5771088664030117433, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: m_LocalPosition.x

@@ -90,6 +90,12 @@ public class Minimap : MonoBehaviour
     public void UpdateHealth(GamePlayer player, float newValue)
     {
         PlayerEntry mapPlayer = players.Find(x => x.mainObject == player.transform);
+        if (mapPlayer == null)
+        {
+            Debug.LogWarning("WAR: Minimap object not found!");
+            return;
+        }
+
         if (mapPlayer.mainObject != null && newValue > 0)
             mapPlayer.minimapIcon.UpdateHealth(newValue);
         else
