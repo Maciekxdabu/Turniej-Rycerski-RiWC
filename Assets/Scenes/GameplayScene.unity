@@ -1202,6 +1202,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!225 &243356783 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1657814015982288540, guid: 62002f5ba2d6fe34eaeb7c6b53ad6971, type: 3}
+  m_PrefabInstance: {fileID: 1384600217}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &271700944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1294,6 +1299,10 @@ PrefabInstance:
       propertyPath: position
       value: -19
       objectReference: {fileID: 0}
+    - target: {fileID: 7434018864792268454, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: disabledPlayerGroup
+      value: 
+      objectReference: {fileID: 243356783}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3746,6 +3755,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 139.79}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &971809748 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1657814015982288540, guid: 62002f5ba2d6fe34eaeb7c6b53ad6971, type: 3}
+  m_PrefabInstance: {fileID: 1355274141}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &992226459
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,6 +3947,10 @@ PrefabInstance:
       propertyPath: position
       value: -19
       objectReference: {fileID: 0}
+    - target: {fileID: 7434018864792268454, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: disabledPlayerGroup
+      value: 
+      objectReference: {fileID: 1675898535}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4141,6 +4159,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62002f5ba2d6fe34eaeb7c6b53ad6971, type: 3}
+--- !u!225 &1150236614 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1657814015982288540, guid: 62002f5ba2d6fe34eaeb7c6b53ad6971, type: 3}
+  m_PrefabInstance: {fileID: 1144721175}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1211944843
 GameObject:
   m_ObjectHideFlags: 0
@@ -5156,6 +5179,10 @@ PrefabInstance:
       propertyPath: position
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 7434018864792268454, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: disabledPlayerGroup
+      value: 
+      objectReference: {fileID: 971809748}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6275,6 +6302,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0.03970337, y: 0}
   m_SizeDelta: {x: -9.9206, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1675898535 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1657814015982288540, guid: 62002f5ba2d6fe34eaeb7c6b53ad6971, type: 3}
+  m_PrefabInstance: {fileID: 1299934704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1702983441
 GameObject:
   m_ObjectHideFlags: 0
@@ -6623,6 +6655,10 @@ PrefabInstance:
       propertyPath: position
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 7434018864792268454, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: disabledPlayerGroup
+      value: 
+      objectReference: {fileID: 1150236614}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6939,7 +6975,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2028886542}
   m_Layer: 0
-  m_Name: ===Players===
+  m_Name: ===Players (local)===
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

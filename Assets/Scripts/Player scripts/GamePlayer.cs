@@ -17,6 +17,7 @@ public class GamePlayer : MonoBehaviour
     [SerializeField] private Animator lanceAnimator = null;
     [Space]
     [SerializeField] private SortingGroup playerSortingGroup;
+    [SerializeField] private CanvasGroup disabledPlayerGroup;
     [Header("REMOVE WHEN REDUNDANT")]
     [SerializeField] private SpriteRenderer knightSprite;
 
@@ -105,6 +106,24 @@ public class GamePlayer : MonoBehaviour
         Orient();
 
         //initialize Minimap Player
+        //TODO
+    }
+
+    public void InitDisable()
+    {
+        //disable all child objects
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        //disable Minimap
+        //TODO
+
+        //Hide the Player Canvas
+        disabledPlayerGroup.alpha = 1f;
+
+        //Check other things to potentialy disable
         //TODO
     }
 

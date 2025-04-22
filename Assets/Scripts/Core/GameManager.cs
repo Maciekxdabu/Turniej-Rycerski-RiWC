@@ -54,9 +54,9 @@ public class GameManager : MonoBehaviour
         }
 
         //Cleanup/do something with the rest of the GamePlayers
-        for (int i=activePlayers.Count-1; i<gamePlayers.Length; i++)
+        for (int i=activePlayers.Count; i<gamePlayers.Length; i++)
         {
-            //TODO
+            gamePlayers[i].InitDisable();
         }
 
         //once all Players are initialized, start the gameplay
