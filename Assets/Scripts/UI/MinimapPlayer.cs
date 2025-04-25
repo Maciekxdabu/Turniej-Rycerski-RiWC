@@ -13,4 +13,10 @@ public class MinimapPlayer : MonoBehaviour
     {
         healthSlider.value = value;
     }
+
+    public void OnMove(float normalizedPosition, int line)
+    {
+        if (GameManager.Instance.minimapEvaluator != null)
+            GameManager.Instance.minimapEvaluator.OnMove(transform, normalizedPosition, line);
+    }
 }

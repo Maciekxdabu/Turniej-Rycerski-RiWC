@@ -68,7 +68,7 @@ public class MapController : MonoBehaviour
         arenaLen = endPosition.position.x - startPosition.position.x;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (betweenLines.Length >= lines.Length)
             return;
@@ -134,11 +134,17 @@ public class MapController : MonoBehaviour
         {
             outOfBounds = PositionState.OutOfBoundsLeft;
             //player.OnOutOfBounds(LenToUnit(0));
+
+            //DEBUG - Remove later
+            position = 0.01f;
         }
         else if (position > 1)
         {
             outOfBounds = PositionState.OutOfBoundsRight;
             //player.OnOutOfBounds(LenToUnit(1));
+
+            //DEBUG - Remove later
+            position = 0.99f;
         }
 
         //return applied position

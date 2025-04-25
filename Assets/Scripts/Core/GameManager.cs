@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerBrainPrefab = null;
     [Header("Values")]
     [SerializeField] private GamePlayer[] gamePlayers;
+    [Tooltip("Setting this reference here, will also set it for all connected MapEvaluators")]
+    [field: SerializeField] public MapDefinition mapData { get; private set; }
+    [field: SerializeField] public MapEvaluator mapEvaluator { get; private set; }
+    [field: SerializeField] public MapEvaluator minimapEvaluator { get; private set; }
     [SerializeField] private string menuSceneName;
 
     private List<PlayerBrain> activePlayers = new List<PlayerBrain>();
@@ -24,7 +28,16 @@ public class GameManager : MonoBehaviour
 
     //singleton
     private static GameManager _instance;
-    public static GameManager Instance { get { return _instance; } }
+    public static GameManager Instance
+    {
+        get
+        {
+            if (Application.isPlaying)
+                return _instance;
+            else
+                return FindAnyObjectByType<GameManager>();
+        }
+    }
 
     // ---------- Unity messages
 
@@ -61,6 +74,14 @@ public class GameManager : MonoBehaviour
 
         //once all Players are initialized, start the gameplay
         StartGame();
+    }
+
+    private void OnValidate()
+    {
+        if (mapEvaluator != null)
+            mapEvaluator.mapData = mapData;
+        if (minimapEvaluator != null)
+            minimapEvaluator.mapData = mapData;
     }
 
     // ---------- public methods

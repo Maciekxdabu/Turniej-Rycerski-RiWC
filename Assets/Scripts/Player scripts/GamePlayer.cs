@@ -18,6 +18,8 @@ public class GamePlayer : MonoBehaviour
     [Space]
     [SerializeField] private SortingGroup playerSortingGroup;
     [SerializeField] private CanvasGroup disabledPlayerGroup;
+    [Space]
+    [SerializeField] private MinimapPlayer minimapRepresentation;
     [Header("REMOVE WHEN REDUNDANT")]
     [SerializeField] private SpriteRenderer knightSprite;
 
@@ -69,9 +71,14 @@ public class GamePlayer : MonoBehaviour
         //change position based on current velocity
         position += velocity * Time.deltaTime;
 
-        //get actual position based on Map
-        MapController.PositionState outOfBounds;
-        (transform.position, outOfBounds) = MapController.OnMove(this, position, line);
+        //(transform.position, outOfBounds) = MapController.OnMove(this, position, line);
+
+        MapEvaluator.PositionState outOfBounds;
+
+        //Update Map and Minimap position (normalize by mapEvaluator)
+        float normalizedPosition = GameManager.Instance.mapEvaluator.UnitToNorm(position);
+        outOfBounds = GameManager.Instance.mapEvaluator.OnMove(transform, normalizedPosition, line);
+        minimapRepresentation.OnMove(normalizedPosition, line);
 
         //Process out of bounds event
         ProcessOutOfBounds(outOfBounds);
@@ -79,10 +86,17 @@ public class GamePlayer : MonoBehaviour
 
     private void OnValidate()
     {
+        if (GameManager.Instance == null)
+            return;
+
         //Update transform and visuals based on Map position
-        if (MapController.Instance != null)
+        if (GameManager.Instance.mapEvaluator != null)
         {
-            (transform.position, _) = MapController.OnMove(this, position, line);
+            float normalizedPosition = GameManager.Instance.mapEvaluator.UnitToNorm(position);
+            GameManager.Instance.mapEvaluator.OnMove(transform, normalizedPosition, line);
+            if (minimapRepresentation != null)
+                minimapRepresentation.OnMove(normalizedPosition, line);
+
             playerSortingGroup.sortingOrder = line * 2;
             Orient();
         }
@@ -162,10 +176,13 @@ public class GamePlayer : MonoBehaviour
         lanceAnimator.speed = 0f;
     }
 
-    public void ProcessOutOfBounds(MapController.PositionState outOfBoundsState)
+    public void ProcessOutOfBounds(MapEvaluator.PositionState outOfBoundsState)
     {
-        if (outOfBoundsState == MapController.PositionState.Normal)
+        if (outOfBoundsState == MapEvaluator.PositionState.Normal)
             return;
+
+        Debug.Log("Currently out of bounds: " + outOfBoundsState.ToString());
+        velocity = 0f;
 
         //disable input
         //TODO
@@ -183,7 +200,7 @@ public class GamePlayer : MonoBehaviour
 
     public void CmdRaiseLine()
     {
-        if (MapController.CanChangeLine(line, position, true))
+        if (GameManager.Instance.mapData.CanChangeLine(line, position, true))
         {
             line--;
             playerSortingGroup.sortingOrder = line * 2;
@@ -192,7 +209,7 @@ public class GamePlayer : MonoBehaviour
 
     public void CmdLowerLine()
     {
-        if (MapController.CanChangeLine(line, position, false))
+        if (GameManager.Instance.mapData.CanChangeLine(line, position, false))
         {
             line++;
             playerSortingGroup.sortingOrder = line * 2;
@@ -237,9 +254,9 @@ public class GamePlayer : MonoBehaviour
     private void Orient()
     {
         if (right)
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
+            playerSortingGroup.transform.localRotation = Quaternion.Euler(0, 0, 0);
         else
-            transform.localRotation = Quaternion.Euler(0, 180, 0);
+            playerSortingGroup.transform.localRotation = Quaternion.Euler(0, 180, 0);
     }
 
     //applies damage to player, plays animation, etc

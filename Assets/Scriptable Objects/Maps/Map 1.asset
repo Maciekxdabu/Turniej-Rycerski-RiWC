@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e9153a1519f1474d84f04f619ff9cf6, type: 3}
+  m_Name: Map 1
+  m_EditorClassIdentifier: 
+  linesAmount: 3
+  betweenLines:
+  - passages:
+    - {x: 0.13604791, y: 0.22466584}
+    - {x: 0.68308616, y: 0.76811534}
+    - {x: 0.8627068, y: 0.9495192}
+  - passages:
+    - {x: 0.045017987, y: 0.13594152}
+    - {x: 0.27543727, y: 0.35983887}
+    - {x: 0.5488377, y: 0.63242805}
+    - {x: 0.7750805, y: 0.8614557}
