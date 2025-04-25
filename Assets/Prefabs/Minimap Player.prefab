@@ -359,6 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6800563847016719998}
+  - component: {fileID: 875228466005974285}
   - component: {fileID: 4845511933381301139}
   m_Layer: 5
   m_Name: Minimap Player
@@ -388,6 +389,18 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000030517578, y: -0.000015258789}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &875228466005974285
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7053459646299542088}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!114 &4845511933381301139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,4 +413,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee47bb87c1acf147b1860534ef3f1c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualsGroup: {fileID: 875228466005974285}
   healthSlider: {fileID: 4003893771216809156}

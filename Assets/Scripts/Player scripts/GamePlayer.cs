@@ -131,8 +131,8 @@ public class GamePlayer : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(false);
         }
 
-        //disable Minimap
-        //TODO
+        //disable Minimap representation
+        minimapRepresentation.Hide();
 
         //Hide the Player Canvas
         disabledPlayerGroup.alpha = 1f;
@@ -200,7 +200,8 @@ public class GamePlayer : MonoBehaviour
 
     public void CmdRaiseLine()
     {
-        if (GameManager.Instance.mapData.CanChangeLine(line, position, true))
+        float normalizedPosition = GameManager.Instance.mapEvaluator.UnitToNorm(position);
+        if (GameManager.Instance.mapData.CanChangeLine(line, normalizedPosition, true))
         {
             line--;
             playerSortingGroup.sortingOrder = line * 2;
@@ -209,7 +210,8 @@ public class GamePlayer : MonoBehaviour
 
     public void CmdLowerLine()
     {
-        if (GameManager.Instance.mapData.CanChangeLine(line, position, false))
+        float normalizedPosition = GameManager.Instance.mapEvaluator.UnitToNorm(position);
+        if (GameManager.Instance.mapData.CanChangeLine(line, normalizedPosition, false))
         {
             line++;
             playerSortingGroup.sortingOrder = line * 2;
@@ -276,7 +278,7 @@ public class GamePlayer : MonoBehaviour
 
         // --- remove damaged health
         health -= damagingPlayer.horseData.strength;
-        Minimap.Instance.UpdateHealth(this, health / maxHealth);
+        minimapRepresentation.UpdateHealth(health / maxHealth);
         Debug.Log("Player received damage", gameObject);
 
         // --- Invincibility time

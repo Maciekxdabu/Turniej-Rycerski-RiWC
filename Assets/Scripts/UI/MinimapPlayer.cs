@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MinimapPlayer : MonoBehaviour
 {
+    [SerializeField] private CanvasGroup visualsGroup;
     [SerializeField] private Slider healthSlider;
 
     // ---------- public methods
@@ -18,5 +19,10 @@ public class MinimapPlayer : MonoBehaviour
     {
         if (GameManager.Instance.minimapEvaluator != null)
             GameManager.Instance.minimapEvaluator.OnMove(transform, normalizedPosition, line);
+    }
+
+    public void Hide()
+    {
+        visualsGroup.alpha = 0f;
     }
 }
