@@ -1331,6 +1331,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_JOINING: 1
   playerBrainPrefab: {fileID: 5771088664030117438, guid: c9a9fa0f640518f408934c941f62af13, type: 3}
+  debugPlayerSpawnData:
+  - controlScheme: Keyboard1
+    horse: {fileID: 11400000, guid: eaf6bec327c71ba4da113f3dcff002e0, type: 2}
+    knight: {fileID: 11400000, guid: a28beb10686bb134d84a75366f5e610d, type: 2}
+  - controlScheme: Keyboard2
+    horse: {fileID: 11400000, guid: e311c2f87601da540bc6e0c946596037, type: 2}
+    knight: {fileID: 11400000, guid: 55e84291eb41bac4ca4ea5d21b4a36d8, type: 2}
   gamePlayers:
   - {fileID: 271700945}
   - {fileID: 1400431609}
@@ -1339,7 +1346,6 @@ MonoBehaviour:
   <mapData>k__BackingField: {fileID: 11400000, guid: 0e1815f84aa000541976233c08fb153d, type: 2}
   <mapEvaluator>k__BackingField: {fileID: 80734070}
   <minimapEvaluator>k__BackingField: {fileID: 1298163232}
-  menuSceneName: MainMenu
 --- !u!1 &301356726
 GameObject:
   m_ObjectHideFlags: 0

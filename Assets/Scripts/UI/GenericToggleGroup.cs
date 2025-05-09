@@ -36,11 +36,34 @@ public class GenericToggleGroup<T, K> : MonoBehaviour where T : ScriptableObject
 
     // ---------- public methods
 
-    public virtual void Init()
+    //TODO - It currently sets the selection "at random" if the selectedData==null... It should not...
+    public virtual void Init(T selectedData=null)
     {
-        //set data to the first ON toggle
-        Toggle toggle = group.GetFirstActiveToggle();
-        Debug.Assert(toggle != null, "ASSERTION FAILED: The FirstActiveToggle is null", gameObject);
+        //Find the first toggle to select
+        Toggle toggle = null;
+        if (selectedData == null)//set data to the first ON toggle
+        {
+            toggle = group.GetFirstActiveToggle();
+            Debug.Assert(toggle != null, "ASSERTION FAILED: The FirstActiveToggle is null", gameObject);
+        }
+        else//try to get the toggle with the requested data
+        {
+            //disable all toggles
+            group.SetAllTogglesOff(false);
+            //search through the toggles in a group
+            //TODO/WAR: This does not check if the toggles found belong to the current group, should fix in the future...
+            K[] toggles = GetComponentsInChildren<K>();
+            foreach (K togData in toggles)
+            {
+                if (togData.data == selectedData)//found a toggle with matching data
+                {
+                    toggle = togData.toggle;
+                    toggle.SetIsOnWithoutNotify(true);
+                    break;
+                }
+            }
+            Debug.Assert(toggle != null, "ASSERTION FAILED: The requested data has not been found in the ToggleGroup", gameObject);
+        }
 
         if (toggle.isOn)
             _chosenData = toggle.GetComponent<K>().data;

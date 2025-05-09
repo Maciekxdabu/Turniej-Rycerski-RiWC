@@ -17,5 +17,5 @@ public class Knight : ScriptableObject
     [field: SerializeField]
     public AudioClip loseCommentClip { get; set; }
     [field: SerializeField]
-    public AudioClip wonoCommentClip { get; set; }
+    public AudioClip wonCommentClip { get; set; }
 }

@@ -104,6 +104,7 @@ public class GamePlayer : MonoBehaviour
 
     // ---------- public methods
 
+    //Called to initialize the Player for gameplay
     public void Init(Horse _horseData, Knight _knightData, PlayerBrain _brain)
     {
         //assign values
@@ -119,10 +120,11 @@ public class GamePlayer : MonoBehaviour
         playerSortingGroup.sortingOrder = line * 2;
         Orient();
 
-        //initialize Minimap Player
+        //initialize Minimap Player (update visuals)
         //TODO
     }
 
+    //Called when GamePlayer is initialized as "disabled" (not taking part i the gameplay)
     public void InitDisable()
     {
         //disable all child objects

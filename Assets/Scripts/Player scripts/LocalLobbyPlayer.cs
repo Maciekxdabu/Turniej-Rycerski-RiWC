@@ -27,9 +27,6 @@ public class LocalLobbyPlayer : MonoBehaviour
     private void Start()
     {
         readyToggle.SetIsOnWithoutNotify(false);
-
-        horseToggleGroup.Init();
-        knightToggleGroup.Init();
     }
 
     // ---------- public methods
@@ -40,6 +37,11 @@ public class LocalLobbyPlayer : MonoBehaviour
     }
 
     public void OnChangeHorseClicked()
+    {
+        OnUpdateSetup();
+    }
+
+    public void OnChangeKnightClicked()
     {
         OnUpdateSetup();
     }
@@ -100,6 +102,10 @@ public class LocalLobbyPlayer : MonoBehaviour
         notAssignedGroup.alpha = 0f;
         notAssignedGroup.interactable = false;
         notAssignedGroup.blocksRaycasts = false;
+
+        //Initialize Toggle groups
+        horseToggleGroup.Init(brain.horseData);
+        knightToggleGroup.Init(brain.knightData);
 
         OnUpdateSetup();
     }

@@ -1520,7 +1520,6 @@ GameObject:
   - component: {fileID: 3294425335571631932}
   - component: {fileID: 5379167076344905874}
   - component: {fileID: 6477411496121165248}
-  - component: {fileID: 2671695047505712925}
   m_Layer: 3
   m_Name: Knight ToggleGorup
   m_TagString: Untagged
@@ -1579,20 +1578,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4899799293735300849}
+        m_TargetAssemblyTypeName: LocalLobbyPlayer, Assembly-CSharp
+        m_MethodName: OnChangeKnightClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _chosenData: {fileID: 0}
---- !u!225 &2671695047505712925
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1815330980162842770}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &1928394247139070509
 GameObject:
   m_ObjectHideFlags: 0
@@ -2911,8 +2910,6 @@ MonoBehaviour:
   uiRoot: {fileID: 444687185038243922}
   firstSelected: {fileID: 550106031307231169}
   notAssignedGroup: {fileID: 2672762657996539177}
-  horseData: {fileID: 0}
-  knightData: {fileID: 0}
 --- !u!1 &4385085589051509489
 GameObject:
   m_ObjectHideFlags: 0

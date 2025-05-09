@@ -10,8 +10,8 @@ public class PlayerBrain : MonoBehaviour
 {
     [SerializeField] private PlayerInputController inputController;
     [Header("Player Data")]
-    [SerializeField, ReadOnly] private Horse horseData = null;
-    [SerializeField, ReadOnly] private Knight knightData = null;
+    [field: SerializeField] public Horse horseData { get; private set; }
+    [field: SerializeField] public Knight knightData { get; private set; }
     [Header("Auto References")]
     [SerializeField, ReadOnly] private GamePlayer gamePlayer;
 
@@ -52,7 +52,14 @@ public class PlayerBrain : MonoBehaviour
     //[Server]
     public void OnGameFinished()
     {
+        //disable input
         DeactivateInput();
+
+        //stop animations and other logic
+        //TODO
+
+        //Clear no-longer needed references
+        //TODO
     }
 
     // ---------- Command methods (called by assigned PlayerController) (will work only if input is activated)

@@ -186,8 +186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputController: {fileID: -3406927814110710720}
-  horseData: {fileID: 11400000, guid: 8a75151769b330148a7b0a4b245987e1, type: 2}
-  knightData: {fileID: 11400000, guid: a28beb10686bb134d84a75366f5e610d, type: 2}
+  <horseData>k__BackingField: {fileID: 11400000, guid: 8a75151769b330148a7b0a4b245987e1, type: 2}
+  <knightData>k__BackingField: {fileID: 11400000, guid: a28beb10686bb134d84a75366f5e610d, type: 2}
   gamePlayer: {fileID: 0}
 --- !u!114 &-3406927814110710720
 MonoBehaviour:

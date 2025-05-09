@@ -12,17 +12,21 @@ public class LocalLobbyManager : MonoBehaviour
     [SerializeField] private string gameplayScene;
     [SerializeField] private List<LocalLobbyPlayer> playerSetups;
 
-    private PlayerInputManager playerInputManager;
-
     // ---------- Unity messages
 
     private void Awake()
     {
-        playerInputManager = GetComponent<PlayerInputManager>();
-
+        //Initialize Lobby Players
         foreach (LocalLobbyPlayer lobbyPlayer in playerSetups)
         {
             lobbyPlayer.Init(this);
+        }
+
+        //Add Players back from Gameplay (if they exist)
+        for (int i=0; i<PlayerInput.all.Count; i++)
+        {
+            PlayerInput player = PlayerInput.all[i];
+            playerSetups[player.playerIndex].OnPlayerJoined(player.GetComponent<PlayerInputController>());
         }
     }
 
@@ -50,6 +54,11 @@ public class LocalLobbyManager : MonoBehaviour
 
     private void OnGameStart()
     {
+        //save which Lobby was on
+        GameManager.lobbyScenebuildIndex = SceneManager.GetActiveScene().buildIndex;
+        //TODO - Later store actual Lobby data in an abstract Lobby class
+        //       unless this data can be reconstructed from just the Players preset, but probably not...
+
         //sort PlayerBrain's singleton List by playerIndex
 
         //send to gameplay scene
