@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.U2D.Animation;
+using DG.Tweening;
 
 /// <summary>
 /// Class meant to control the in-game Player (later server-owned)
@@ -10,6 +11,7 @@ using UnityEngine.U2D.Animation;
 public class GamePlayer : MonoBehaviour
 {
     [SerializeField] private float invincibilityTime = 1.5f;
+    [SerializeField] private float outOfBoundsDamage = 20f;
     [Space]
     [SerializeField] private SpriteLibrary horseSpriteLibrary;
     [SerializeField] private SpriteLibrary knightSpriteLibrary;
@@ -37,10 +39,11 @@ public class GamePlayer : MonoBehaviour
     private bool canLance = true;
     private bool lunging = false;
     private bool canBeDamaged = true;
+    private bool outOfBoundsPlaying = false;
 
     private float maxHealth = 100f;
     private float health = 100f;
-    private float velocity = 0f;
+    [SerializeField, ReadOnly] private float velocity = 0f;
 
     //input
     private float moveValue = 0f;
@@ -49,27 +52,30 @@ public class GamePlayer : MonoBehaviour
 
     private void Update()
     {
-        //change velocity on input
-        if (moveValue != 0)
+        if (outOfBoundsPlaying == false)
         {
-            velocity += moveValue * horseData.acceleration * Time.deltaTime;
-            velocity = Mathf.Clamp(velocity, -horseData.maxSpeed, horseData.maxSpeed);
-            spriteAnimator.SetFloat("Speed", Mathf.Abs(velocity));
+            //change velocity on input
+            if (moveValue != 0)
+            {
+                velocity += moveValue * horseData.acceleration * Time.deltaTime;
+                velocity = Mathf.Clamp(velocity, -horseData.maxSpeed, horseData.maxSpeed);
+                spriteAnimator.SetFloat("Speed", Mathf.Abs(velocity));
 
-            if (velocity < 0f)
-            {
-                right = false;
-                Orient();
+                if (velocity < 0f)
+                {
+                    right = false;
+                    Orient();
+                }
+                else if (velocity > 0f)
+                {
+                    right = true;
+                    Orient();
+                }
             }
-            else if (velocity > 0f)
-            {
-                right = true;
-                Orient();
-            }
+
+            //change position based on current velocity
+            position += velocity * Time.deltaTime;
         }
-
-        //change position based on current velocity
-        position += velocity * Time.deltaTime;
 
         //(transform.position, outOfBounds) = MapController.OnMove(this, position, line);
 
@@ -183,14 +189,18 @@ public class GamePlayer : MonoBehaviour
         if (outOfBoundsState == MapEvaluator.PositionState.Normal)
             return;
 
-        Debug.Log("Currently out of bounds: " + outOfBoundsState.ToString());
-        velocity = 0f;
-
-        //disable input
-        //TODO
-
-        //apply out of bounds animation based on out of bounds state
-        //TODO
+        switch (outOfBoundsState)
+        {
+            case MapEvaluator.PositionState.Normal:
+                break;
+            case MapEvaluator.PositionState.OutOfBoundsLeft:
+            case MapEvaluator.PositionState.OutOfBoundsRight:
+                StartCoroutine(OnPlayerOutOfBounds());
+                break;
+            case MapEvaluator.PositionState.Invalid:
+                Debug.LogWarning("WAR: The position on the Map is invalid", gameObject);
+                break;
+        }
     }
 
     // ---------- Command methods (called by assigned PlayerBrain when canBeControlled==true)
@@ -255,6 +265,14 @@ public class GamePlayer : MonoBehaviour
 
     // ---------- private methods
 
+    //Subtracts Player health and updates its display values
+    private void SubtractHealth(float value)
+    {
+        health -= value;
+        minimapRepresentation.UpdateHealth(health / maxHealth);
+        Debug.Log("Player received damage: " + value.ToString("00.00"), gameObject);
+    }
+
     private void Orient()
     {
         if (right)
@@ -263,9 +281,10 @@ public class GamePlayer : MonoBehaviour
             playerSortingGroup.transform.localRotation = Quaternion.Euler(0, 180, 0);
     }
 
-    //applies damage to player, plays animation, etc
+    //applies damage to the player, plays animation, etc
     private IEnumerator DamageSelf(GamePlayer damagingPlayer)
     {
+        //ensure only one is playing at a time
         if (canBeDamaged == false)
             yield break;
         canBeDamaged = false;
@@ -279,14 +298,12 @@ public class GamePlayer : MonoBehaviour
         knightSprite.color = color;
 
         // --- remove damaged health
-        health -= damagingPlayer.horseData.strength;
-        minimapRepresentation.UpdateHealth(health / maxHealth);
-        Debug.Log("Player received damage", gameObject);
+        SubtractHealth(damagingPlayer.horseData.strength);
 
         // --- Invincibility time
-        //wait for invincibility time (later animation length)
+        //wait for invincibility time (later animation length present above)
         yield return new WaitForSeconds(invincibilityTime);
-        //reset player
+        //reset player (remove when proper animation exists)
         color.a = 1f;
         knightSprite.color = color;
 
@@ -297,6 +314,54 @@ public class GamePlayer : MonoBehaviour
         {
             brain.ActivateInput();
             canBeDamaged = true;
+        }
+    }
+
+    //used by Virtual Tweeners
+    public void CallbackPosition(float value)
+    {
+        position = value;
+    }
+
+    private IEnumerator OnPlayerOutOfBounds()
+    {
+        //ensure only one is playing at a time
+        if (outOfBoundsPlaying)
+            yield break;
+        outOfBoundsPlaying = true;
+
+        //disable input
+        brain.DeactivateInput();
+        moveValue = 0f;
+        velocity = 0;
+        canBeDamaged = false;
+
+        //play animation
+        Tween tween = DOVirtual.Float(position,
+            position + (right ? 5f : -5f),
+            5f,
+            CallbackPosition).SetEase(Ease.Linear);
+        yield return tween.WaitForCompletion();
+        tween.Kill();
+
+        //set player orientation and position
+        right = !right;
+        float arenaNormPadding = GameManager.Instance.mapEvaluator.UnitToNormLength(1f);
+        position = GameManager.Instance.mapEvaluator.NormToUnit(right ? arenaNormPadding : 1f - arenaNormPadding);
+        velocity = right ? horseData.maxSpeed * 0.2f : horseData.maxSpeed * -0.2f;
+        Orient();
+
+        //apply out of bounds damage
+        SubtractHealth(outOfBoundsDamage);
+
+        // --- call death after animation ended and health <= 0
+        if (health <= 0)
+            OnPlayerDeath();
+        else//reactivate input if player is still alive
+        {
+            brain.ActivateInput();
+            canBeDamaged = true;
+            outOfBoundsPlaying = false;
         }
     }
 

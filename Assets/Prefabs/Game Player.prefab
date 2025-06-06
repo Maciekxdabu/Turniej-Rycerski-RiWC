@@ -404,12 +404,14 @@ MonoBehaviour:
   lanceAnimator: {fileID: 5771088663409332058}
   playerSortingGroup: {fileID: 2957889300222030428}
   disabledPlayerGroup: {fileID: 0}
+  minimapRepresentation: {fileID: 0}
   knightSprite: {fileID: 5771088663719651208}
   line: 0
   position: 0
   right: 1
   horseData: {fileID: 0}
   knightData: {fileID: 0}
+  velocity: 0
 --- !u!1 &5771088665093958344
 GameObject:
   m_ObjectHideFlags: 0

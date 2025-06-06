@@ -94,13 +94,23 @@ public class MapEvaluator : MonoBehaviour
     // ---------- public conversion methods
 
     /// <summary>
-    /// Transforms Unity units to normalized arena length (based on current Evaluator)
+    /// Transforms Unity units to normalized arena length (based on the current Evaluator, so markers positions)
     /// </summary>
     /// <param name="unit"></param>
     /// <returns></returns>
     public float UnitToNorm(float unit)
     {
         return (unit - startX) / arenaLen;
+    }
+
+    /// <summary>
+    /// Transforms Unity units to normalized arena length (not based on Evaluator, just pure length)
+    /// </summary>
+    /// <param name="unit"></param>
+    /// <returns></returns>
+    public float UnitToNormLength(float unit)
+    {
+        return unit / arenaLen;
     }
 
     /// <summary>

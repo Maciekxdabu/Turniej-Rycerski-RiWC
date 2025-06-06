@@ -1042,6 +1042,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5771088665093958346, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 49544e8857a16ba4d86c33b6c57b2114, type: 3}
+    - target: {fileID: 6383108776493337231, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: m_labelHash
+      value: 1.2985474e-36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383108776493337231, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: m_SpriteHash
+      value: 916757651
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383108776493337231, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: m_CategoryHash
+      value: 1.0429618e-14
+      objectReference: {fileID: 0}
     - target: {fileID: 7434018864792268454, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: line
       value: 0
@@ -5187,6 +5203,22 @@ PrefabInstance:
     - target: {fileID: 5771088664030117438, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: m_Name
       value: Game Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5771088665093958346, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c12b4790a98073c429591e2cbbd9bfaf, type: 3}
+    - target: {fileID: 6383108776493337231, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: m_labelHash
+      value: 0.000000084799865
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383108776493337231, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: m_SpriteHash
+      value: 114190364
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383108776493337231, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
+      propertyPath: m_CategoryHash
+      value: 1.0429618e-14
       objectReference: {fileID: 0}
     - target: {fileID: 7434018864792268454, guid: 7c77b0339de758948ad6f5534828823b, type: 3}
       propertyPath: right
